@@ -1,0 +1,7 @@
+The files in this repository for iQuassel (so except "3rdparty" directory contents) are released
+ 1) Under the The GNU General Public License v3.0
+ 2) Alternatively, Woboq GmbH (Berlin, Germany) or its successors can publish this on their own terms into the iOS App Store
+
+This means especially that you can't just take this code and publish your own version to the iOS App Store.
+
+For more information, see the README file.

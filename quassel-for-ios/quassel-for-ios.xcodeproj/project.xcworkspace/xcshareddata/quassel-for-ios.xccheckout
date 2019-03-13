@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>BE642A79-5B67-4B0A-822D-052ADF6F0D71</string>
+	<key>IDESourceControlProjectName</key>
+	<string>project</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1C75F1C5CFCB95B3702F6F632FA05ED5244B519E</key>
+		<string>https://github.com/robbiehanson/CocoaAsyncSocket.git</string>
+		<key>85EF213FE902B7804BF0B09560CB3506FFB09B56</key>
+		<string>bitbucket.org:mgoetz/quassel-for-ios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>quassel-for-ios/quassel-for-ios.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1C75F1C5CFCB95B3702F6F632FA05ED5244B519E</key>
+		<string>../../..CocoaAsyncSocket</string>
+		<key>85EF213FE902B7804BF0B09560CB3506FFB09B56</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>bitbucket.org:mgoetz/quassel-for-ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>85EF213FE902B7804BF0B09560CB3506FFB09B56</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>85EF213FE902B7804BF0B09560CB3506FFB09B56</string>
+			<key>IDESourceControlWCCName</key>
+			<string>quassel-for-ios</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1C75F1C5CFCB95B3702F6F632FA05ED5244B519E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>quassel-for-iosCocoaAsyncSocket</string>
+		</dict>
+	</array>
+</dict>
+</plist>

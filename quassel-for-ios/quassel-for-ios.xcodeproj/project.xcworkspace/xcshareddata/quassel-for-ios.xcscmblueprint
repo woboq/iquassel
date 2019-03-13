@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "85EF213FE902B7804BF0B09560CB3506FFB09B56",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "1C75F1C5CFCB95B3702F6F632FA05ED5244B519E" : 0,
+    "85EF213FE902B7804BF0B09560CB3506FFB09B56" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "BE642A79-5B67-4B0A-822D-052ADF6F0D71",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "1C75F1C5CFCB95B3702F6F632FA05ED5244B519E" : "quassel-for-ios\/CocoaAsyncSocket\/",
+    "85EF213FE902B7804BF0B09560CB3506FFB09B56" : "quassel-for-ios\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "quassel-for-ios",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "quassel-for-ios\/quassel-for-ios.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/robbiehanson\/CocoaAsyncSocket.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1C75F1C5CFCB95B3702F6F632FA05ED5244B519E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "bitbucket.org:mgoetz\/quassel-for-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "85EF213FE902B7804BF0B09560CB3506FFB09B56"
+    }
+  ]
+}
