@@ -60,11 +60,9 @@
 -(void) tabCompleteNick
 {
     Boolean firstStr = false;
-    NSString *complString;
     if (_storedString == nil) {
         _storedString = [inputTextField.text copy];
     }
-    complString = [_storedString copy];
 
     // get the last word of the line
     NSRange lastIdx = [_storedString rangeOfString:@" " options:NSBackwardsSearch];
