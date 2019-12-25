@@ -49,6 +49,61 @@
     return self;
 }
 
+-(void) keyboardCallback
+{
+    // invalidate the current stored line.
+    if (_storedString) {
+        _storedString = nil;
+    }
+}
+
+-(void) tabCompleteNick
+{
+    Boolean firstStr = false;
+    if (_storedString == nil) {
+        _storedString = [inputTextField.text copy];
+    }
+
+    // get the last word of the line
+    NSRange lastIdx = [_storedString rangeOfString:@" " options:NSBackwardsSearch];
+
+    if (lastIdx.length == 0) {
+        firstStr = true;
+    }
+
+    NSString *partialNick = nil;
+    if (firstStr) {
+        partialNick = [_storedString copy];
+    } else {
+        NSRange subNick;
+        subNick.location = lastIdx.location + 1;
+        subNick.length = [_storedString length] - subNick.location;
+        partialNick = [_storedString substringWithRange:subNick];
+    }
+
+    NSArray *nicks = [quasselCoreConnection ircUsersForChannelWithBufferId:bufferId];
+    NSInteger nickCount = [nicks count];
+    for (int i = 0; i < nickCount; i++) {
+        NSString *nick = [[nicks objectAtIndex:(_tabCompleteIndex % nickCount)] nick];
+        const char *nickStr = [nick UTF8String];
+        NSLog(@"-%s\n", nickStr);
+        _tabCompleteIndex++;
+        if ([nick rangeOfString:partialNick options:NSCaseInsensitiveSearch].location == 0) {
+            // it's good we hit the right nick
+            if (firstStr) {
+                inputTextField.text = [NSString stringWithFormat:@"%@: ", nick];
+            } else {
+                NSRange prevRange;
+                prevRange.location = 0;
+                prevRange.length = lastIdx.location;
+                NSString *prevBeginning = [[_storedString substringWithRange:prevRange] copy];
+                inputTextField.text = [NSString stringWithFormat:@"%@ %@ ", prevBeginning, nick];
+            }
+            break;
+        }
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -85,7 +140,15 @@
     //inputTextField.adjustsFontForContentSizeCategory = YES;
 
     //self.tableView.tableFooterView = inputTextField;
-
+    UIToolbar* tabKeyToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 50)];
+    tabKeyToolbar.barStyle = UIBarStyleDefault;
+    tabKeyToolbar.items = [NSArray arrayWithObjects:
+                                   [[UIBarButtonItem alloc]initWithTitle:@"Tab" style:UIBarButtonItemStyleBordered target:self action:@selector(tabCompleteNick)],
+                                   nil];
+    [tabKeyToolbar sizeToFit];
+    inputTextField.inputAccessoryView = tabKeyToolbar;
+    [inputTextField addTarget:self action:@selector(keyboardCallback)
+    forControlEvents:UIControlEventEditingChanged];
     self.tableView.backgroundColor = [UIColor whiteColor];
     
     

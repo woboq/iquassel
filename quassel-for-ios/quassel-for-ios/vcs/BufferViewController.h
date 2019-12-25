@@ -54,5 +54,8 @@
 @property (strong, nonatomic) UserListTableViewController* userListTableViewController;
 @property (strong, nonatomic) UIPopoverController* userListTableViewControllerPopoverController;
 
+@property (nonatomic) NSInteger tabCompleteIndex;
+@property (nonatomic) NSString *storedString;
+
 
 @end
