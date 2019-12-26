@@ -282,17 +282,17 @@
         
         cell.textLabel.backgroundColor = [UIColor clearColor];
         if (bufferActivity & BufferActivityNewMessage) {
-            cell.textLabel.textColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.7 alpha:1];
-            cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.99 alpha:1];
+            cell.textLabel.textColor = [UIColor systemBlueColor];
+            cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.99 alpha:1]; // XXX not following HI Guidelines
         } else if (bufferActivity & BufferActivityOtherActivity) {
-            cell.textLabel.textColor = [UIColor colorWithRed:0.1 green:0.7 blue:0.1 alpha:1];
-            cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.99 blue:0.95 alpha:1];
+            cell.textLabel.textColor = [UIColor systemGreenColor];
+            cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.99 blue:0.95 alpha:1]; // XXX not following HI Guidelines
         } else if (bufferActivity & BufferActivityHighlight) {
             cell.textLabel.textColor = [UIColor orangeColor];
-            cell.backgroundColor = [UIColor colorWithRed:0.99 green:0.95 blue:0.95 alpha:1];    
+            cell.backgroundColor = [UIColor colorWithRed:0.99 green:0.95 blue:0.95 alpha:1]; // XXX not following HI Guidelines
         } else {
-            cell.textLabel.textColor = [UIColor blackColor];
-            cell.backgroundColor = [UIColor whiteColor];
+            cell.textLabel.textColor = [UIColor labelColor];
+            cell.backgroundColor = [UIColor systemBackgroundColor];
         }
     }
 }
