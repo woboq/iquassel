@@ -495,7 +495,7 @@
 
     
     if (message.messageFlag & MessageFlagHilight) {
-        cell.backgroundColor = [UIColor systemPurpleColor];
+        cell.backgroundColor = [UIColor systemOrangeColor];
     } else {
         cell.backgroundColor = [UIColor clearColor];
     }
