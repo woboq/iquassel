@@ -34,8 +34,8 @@ typedef enum{
 } EGOPullState;
 
 #define DEFAULT_ARROW_IMAGE         [UIImage imageNamed:@"blueArrow.png"]
-#define DEFAULT_BACKGROUND_COLOR    [UIColor colorWithRed:226.0/255.0 green:231.0/255.0 blue:237.0/255.0 alpha:1.0]
-#define DEFAULT_TEXT_COLOR          [UIColor colorWithRed:87.0/255.0 green:108.0/255.0 blue:137.0/255.0 alpha:1.0]
+#define DEFAULT_BACKGROUND_COLOR    [UIColor systemGray4Color]
+#define DEFAULT_TEXT_COLOR          [UIColor secondaryLabelColor]
 #define DEFAULT_ACTIVITY_INDICATOR_STYLE    UIActivityIndicatorViewStyleGray
 
 #define FLIP_ANIMATION_DURATION 0.18f
@@ -49,8 +49,8 @@ typedef enum{
 	
 	id _delegate;
 	EGOPullState _state;
-    
-	UILabel *_lastUpdatedLabel;
+
+    UILabel *_lastUpdatedLabel;
 	UILabel *_statusLabel;
 	CALayer *_arrowImage;
 	UIActivityIndicatorView *_activityView;
