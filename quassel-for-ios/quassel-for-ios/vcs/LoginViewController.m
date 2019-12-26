@@ -102,6 +102,7 @@
         //errroLabel.lineBreakMode = UILineBreakModeWordWrap;
         errroLabel.text = @"Welcome to iQuassel!\n\nThis is a client for the Quassel IRC system.\n\nYou need an account on a Quassel core to use it.\n\nIf you need help, we are on \n#woboquassel on irc.freenode.net";
     }
+    errroLabel.textColor = [UIColor labelColor];
     errroLabel.hidden = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) && UIInterfaceOrientationIsLandscape(self.interfaceOrientation);
     
     [quasselButton addTarget:self action:@selector(quasselButtonTouched) forControlEvents:UIControlEventTouchUpInside];
