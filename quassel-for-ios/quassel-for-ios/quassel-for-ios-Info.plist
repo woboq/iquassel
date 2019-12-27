@@ -32,6 +32,8 @@
 	<array>
 		<string>fetch</string>
 	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>IPhoneStoryboard</string>
 	<key>UIMainStoryboardFile</key>
 	<string>IPhoneStoryboard</string>
 	<key>UIMainStoryboardFile~ipad</key>
