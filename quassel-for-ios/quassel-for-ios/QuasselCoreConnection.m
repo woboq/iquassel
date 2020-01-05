@@ -96,7 +96,7 @@
 
     NSLog(@"Connecting to %@:%d", hostName, port);
     socket = [[GCDAsyncSocket alloc] initWithDelegate:self
-                                        delegateQueue:queue
+                                        delegateQueue:dispatch_get_main_queue()
                                           socketQueue:queue];
 
 
