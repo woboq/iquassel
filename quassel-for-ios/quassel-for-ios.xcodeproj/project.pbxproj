@@ -16,6 +16,7 @@
 		5B1E6AEB15AF4889004253AF /* BufferListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1E6AEA15AF4889004253AF /* BufferListViewController.m */; };
 		5B1E6AEF15AF5715004253AF /* BufferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1E6AEE15AF5715004253AF /* BufferViewController.m */; };
 		5B1E6AF215AF57FB004253AF /* SplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1E6AF115AF57FB004253AF /* SplitViewController.m */; };
+		5B22B3A423C1DD3E00A9A57C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B22B3A323C1DD3E00A9A57C /* StoreKit.framework */; };
 		5B278653189A85E300A60066 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B278642189A85E300A60066 /* iTunesArtwork@2x.png */; };
 		5B4156C915DD2E1500C60EE3 /* ErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4156C815DD2E1500C60EE3 /* ErrorViewController.m */; };
 		5B4156CE15DD3DC100C60EE3 /* AppState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4156CD15DD3DC100C60EE3 /* AppState.m */; };
@@ -103,6 +104,7 @@
 		5B1E6AEE15AF5715004253AF /* BufferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BufferViewController.m; path = vcs/BufferViewController.m; sourceTree = "<group>"; };
 		5B1E6AF015AF57FB004253AF /* SplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SplitViewController.h; path = vcs/SplitViewController.h; sourceTree = "<group>"; };
 		5B1E6AF115AF57FB004253AF /* SplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SplitViewController.m; path = vcs/SplitViewController.m; sourceTree = "<group>"; };
+		5B22B3A323C1DD3E00A9A57C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5B278636189A7FEB00A60066 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5B278641189A85E300A60066 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		5B278642189A85E300A60066 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B22B3A423C1DD3E00A9A57C /* StoreKit.framework in Frameworks */,
 				5B7FABDA162DEE380040076C /* QuartzCore.framework in Frameworks */,
 				5BE2CAE415DD0440007D7231 /* libz.dylib in Frameworks */,
 				5BD5F00015B70E42004E22B6 /* Security.framework in Frameworks */,
@@ -375,6 +378,7 @@
 		5BFA9C4E1591CC00006861D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5B22B3A323C1DD3E00A9A57C /* StoreKit.framework */,
 				5BFA9C4F1591CC00006861D2 /* UIKit.framework */,
 				5BFA9C511591CC00006861D2 /* Foundation.framework */,
 				5BFA9C531591CC00006861D2 /* CoreGraphics.framework */,

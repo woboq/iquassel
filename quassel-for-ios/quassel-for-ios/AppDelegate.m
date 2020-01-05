@@ -12,6 +12,8 @@
 
 #import "AppState.h"
 
+#import <StoreKit/StoreKit.h>
+
 
 @implementation AppDelegate
 @synthesize quasselCoreConnection;
@@ -294,6 +296,15 @@ void myExceptionHandler (NSException *exception)
 //        
 //    }
     [self updateConnectionProgress:@"Logged In"];
+
+	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+	NSInteger loginCount = [ud integerForKey:@"counts.loggedin"];
+	loginCount++;
+	[ud setInteger:loginCount forKey:@"counts.loggedin"];
+	NSLog(@"Logged in %ld times", loginCount);
+	if (loginCount >= 20 && loginCount % 10 == 0) {
+		[SKStoreReviewController requestReview];
+	}
 }
 
 - (void) quasselBufferListUpdated
