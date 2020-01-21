@@ -1386,24 +1386,27 @@
 - (void) computeBufferActivityForBuffer:(BufferId*)bufferId
 {
     MsgId *lastSeenForBuffer = [self lastSeenMsgForBuffer:bufferId];
-    //NSLog(@"computeBufferActivityForBuffer Last seen msg ID is = %@", lastSeenForBuffer);
+    NSLog(@"computeBufferActivityForBuffer Last seen msg ID is = %@", lastSeenForBuffer);
     NSArray *messages = [self.bufferIdMessageListMap objectForKey:bufferId];
 
     __block enum BufferActivity computedActivity = BufferActivityNoActivity;
     [messages enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         Message *message = obj;
-        if (lastSeenForBuffer && lastSeenForBuffer.intValue >= message.messageId.intValue) {
-            //NSLog(@"computeBufferActivityForBuffer %d RETURNING,LASTSEEN %@", idx, message);
+        if (!lastSeenForBuffer) {
+            // e.g. old queries with no new message, only Day Changed etc
+            *stop = YES;
+            computedActivity = BufferActivityNoActivity;
+        } else if (lastSeenForBuffer && lastSeenForBuffer.intValue >= message.messageId.intValue) {
+            NSLog(@"computeBufferActivityForBuffer %d RETURNING,LASTSEEN %@", idx, message);
             *stop = YES;
             return;
         } else if (message.messageType == MessageTypeAction
                    || message.messageType == MessageTypePlain) {
             computedActivity = BufferActivityNewMessage;
-            //NSLog(@"computeBufferActivityForBuffer %d RETURNING,CHAT %@", idx, message);
+            NSLog(@"computeBufferActivityForBuffer %d RETURNING,CHAT %@", idx, message);
             *stop = YES;
-            return;
         } else {
-            //NSLog(@"computeBufferActivityForBuffer%d OTHERACTIVITY %@", idx, message);
+            NSLog(@"computeBufferActivityForBuffer%d OTHERACTIVITY %@", idx, message);
             computedActivity = BufferActivityOtherActivity;
         }
     }];
