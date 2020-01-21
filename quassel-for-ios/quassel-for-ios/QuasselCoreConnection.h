@@ -49,6 +49,7 @@
 - (NSArray*) ircUsersForChannelWithBufferId:(BufferId*)bufferId;
 
 @property (nonatomic) int networkInitsReceived;
+@property (nonatomic, strong) NSString *bufferViewConfigId;
 
 @property (nonatomic) enum State state;
 

@@ -74,7 +74,8 @@
 {
     if (!quasselCoreConnection)
         return 0;
-    
+
+    // FIXME: This is not the BufferViewConfig layout as in desktop, we would need to handle the BufferViewConfig properties
     return quasselCoreConnection.neworkIdList.count;
 }
 
@@ -82,7 +83,8 @@
 {
     if (!quasselCoreConnection)
         return 0;
-    
+
+    // FIXME: This is not the BufferViewConfig layout as in desktop, we would need to handle the BufferViewConfig properties
     NetworkId *idAtIndex = [quasselCoreConnection.neworkIdList objectAtIndex:section];
     // plus one for the status buffer
     return [[quasselCoreConnection.networkIdBufferIdListMap objectForKey:idAtIndex] count] + 1;

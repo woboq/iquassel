@@ -44,6 +44,7 @@
 @synthesize networkIdUserMapMap;
 @synthesize networkIdChannelMapMap;
 @synthesize networkInitsReceived;
+@synthesize bufferViewConfigId;
 
 @synthesize bufferIdToRestore;
 
@@ -87,6 +88,7 @@
 
     networkIdUserMapMap = nil;;
     networkInitsReceived = 0;
+    bufferViewConfigId = nil;
     networkIdChannelMapMap = nil;
 
     inputDataCounter = 0;
@@ -472,12 +474,17 @@
                                    [[QVariant alloc] initWithString:@""],
                                    nil
                                    ]];
+
                 NSLog(@"Sending BufferViewConfig InitRequest");
-                [self sendCommand:[NSArray arrayWithObjects:[[QVariant alloc] initWithInt:InitRequest],
-                                   [[QVariant alloc] initWithString:@"BufferViewConfig"],
-                                   [[QVariant alloc] initWithString:@"0"],
-                                   nil
-                                   ]];
+                for (int i = 10; i >= 0; i--) {
+                    // Brute force initialize chat lists 10,9,8,..0, we take the one that works into bufferViewConfigId
+                    NSString *bufferViewConfigId = [NSString stringWithFormat:@"%d", i];
+                    [self sendCommand:[NSArray arrayWithObjects:[[QVariant alloc] initWithInt:InitRequest],
+                                       [[QVariant alloc] initWithString:@"BufferViewConfig"],
+                                       [[QVariant alloc] initWithString:bufferViewConfigId],
+                                       nil
+                                       ]];
+                }
 
                 //[delegate quasselAllNetworkInitReceived];
                 return;
@@ -612,7 +619,7 @@
                         [self disconnect];
                     }
                 } else if ([className isEqualToString:@"BufferViewConfig"] &&
-                           [objectName isEqualToString:@"0"]) {
+                           [objectName isEqualToString:bufferViewConfigId]) {
                     if ([functionName isEqualToString:@"addBuffer"]) {
                         /*
                          2012-07-19 22:02:54.529 quassel-for-ios[44351:707] ...list (
@@ -934,11 +941,23 @@
                  */
                 NSString *className = [[v.list objectAtIndex:1] asStringFromStringOrByteArray];
                 NSString *objectName = [[v.list objectAtIndex:2] asStringFromStringOrByteArray];
-                if ([className isEqualToString:@"BufferViewConfig"] && [objectName isEqualToString:@"0"]) {
+                if ([className isEqualToString:@"BufferViewConfig"] && objectName && !bufferViewConfigId) {
+                    // The first returned one by the core is the one we take for displaying and adding buffers
+                    bufferViewConfigId = objectName;
+                    NSLog(@"BufferViewConfig = %@ (chat list)", bufferViewConfigId);
+                    // Note that we don't actually display the chat list like in the desktop in our UITableView. This is just
+                    // to avoid stalling at "Authenticated".
+                }
+                if ([className isEqualToString:@"BufferViewConfig"] && [objectName isEqualToString:bufferViewConfigId]) {
                     NSDictionary *initData = [[v.list objectAtIndex:3] dict];
                     NSArray *bufferList = [[initData objectForKey:@"BufferList"] list];
+                    NSString *bufferViewConfigName = [[initData objectForKey:@"bufferViewName"] asStringFromStringOrByteArray];
+                    NSLog(@"--> %@", bufferViewConfigName);
+                    NSLog(@"Removed %@", [[initData objectForKey:@"RemovedBuffers"] list]);
+                    NSLog(@"Temporarily removed %@", [[initData objectForKey:@"TemporarilyRemovedBuffers"] list]);
                     [bufferList enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                         BufferId *bufferId = [obj bufferId];
+                        NSLog(@"--> %@", obj);
 
 
                         BufferInfo *bufferInfo = [bufferIdBufferInfoMap objectForKey:bufferId];
@@ -1055,7 +1074,7 @@
         NSMutableArray *commandArray = [NSMutableArray array];
         [commandArray addObject:[[QVariant alloc] initWithInt:Sync]];
         [commandArray addObject:[[QVariant alloc] initWithString:@"BufferViewConfig"]];
-        [commandArray addObject:[[QVariant alloc] initWithString:@"0"]];
+        [commandArray addObject:[[QVariant alloc] initWithString:bufferViewConfigId]];
         [commandArray addObject:[[QVariant alloc] initWithString:@"requestAddBuffer"]];
         [commandArray addObject:[[QVariant alloc] initWithBufferId:bufferId]];
         [commandArray addObject:[[QVariant alloc] initWithInt:INT_MAX]];
@@ -1474,7 +1493,7 @@
             NSMutableArray *commandArray = [NSMutableArray array];
             [commandArray addObject:[[QVariant alloc] initWithInt:Sync]];
             [commandArray addObject:[[QVariant alloc] initWithString:@"BufferViewConfig"]];
-            [commandArray addObject:[[QVariant alloc] initWithString:@"0"]];
+            [commandArray addObject:[[QVariant alloc] initWithString:bufferViewConfigId]];
             [commandArray addObject:[[QVariant alloc] initWithString:@"requestAddBuffer"]];
             [commandArray addObject:[[QVariant alloc] initWithBufferId:bufferId]];
             [commandArray addObject:[[QVariant alloc] initWithInt:INT_MAX]];
