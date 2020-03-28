@@ -56,6 +56,6 @@
 
 @property (nonatomic) NSInteger tabCompleteIndex;
 @property (nonatomic) NSString *storedString;
-
+-(void) tabCompleteNick;
 
 @end

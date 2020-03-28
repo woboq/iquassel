@@ -513,4 +513,17 @@ void myExceptionHandler (NSException *exception)
     return (AppDelegate*) [[UIApplication sharedApplication] delegate];
 }
 
+- (NSArray *)keyCommands {
+    static NSArray *commands;
+
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        UIKeyCommand *const tab = [UIKeyCommand keyCommandWithInput:@"\t" modifierFlags:0 action:@selector(tabSelector)];
+
+        commands = @[tab];
+    });
+
+    return commands;
+}
+
 @end

@@ -20,6 +20,7 @@
 		5B278653189A85E300A60066 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B278642189A85E300A60066 /* iTunesArtwork@2x.png */; };
 		5B4156C915DD2E1500C60EE3 /* ErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4156C815DD2E1500C60EE3 /* ErrorViewController.m */; };
 		5B4156CE15DD3DC100C60EE3 /* AppState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4156CD15DD3DC100C60EE3 /* AppState.m */; };
+		5B4A8C3F242FE305006C5169 /* UITextField+QuasselInputField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A8C3E242FE305006C5169 /* UITextField+QuasselInputField.m */; };
 		5B5E566716B7954A005D442B /* IPhoneStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B5E566616B7954A005D442B /* IPhoneStoryboard.storyboard */; };
 		5B6169BC15FF7A9700F85FDE /* woboq.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B6169BB15FF7A9700F85FDE /* woboq.png */; };
 		5B6169C015FF7C8B00F85FDE /* quasselicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B6169BF15FF7C8B00F85FDE /* quasselicon.png */; };
@@ -112,6 +113,8 @@
 		5B4156C815DD2E1500C60EE3 /* ErrorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ErrorViewController.m; path = vcs/ErrorViewController.m; sourceTree = "<group>"; };
 		5B4156CC15DD3DC100C60EE3 /* AppState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppState.h; sourceTree = "<group>"; };
 		5B4156CD15DD3DC100C60EE3 /* AppState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppState.m; sourceTree = "<group>"; };
+		5B4A8C3D242FE305006C5169 /* UITextField+QuasselInputField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+QuasselInputField.h"; sourceTree = "<group>"; };
+		5B4A8C3E242FE305006C5169 /* UITextField+QuasselInputField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+QuasselInputField.m"; sourceTree = "<group>"; };
 		5B5E566616B7954A005D442B /* IPhoneStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IPhoneStoryboard.storyboard; sourceTree = "<group>"; };
 		5B6169BB15FF7A9700F85FDE /* woboq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = woboq.png; sourceTree = "<group>"; };
 		5B6169BF15FF7C8B00F85FDE /* quasselicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = quasselicon.png; sourceTree = "<group>"; };
@@ -396,6 +399,8 @@
 				5B1B8A7515B4544300DA3B64 /* QuasselUtils.m */,
 				5BFA9C5E1591CC00006861D2 /* AppDelegate.h */,
 				5BFA9C5F1591CC00006861D2 /* AppDelegate.m */,
+				5B4A8C3D242FE305006C5169 /* UITextField+QuasselInputField.h */,
+				5B4A8C3E242FE305006C5169 /* UITextField+QuasselInputField.m */,
 				5BFA9C611591CC00006861D2 /* MainStoryboard.storyboard */,
 				5B5E566616B7954A005D442B /* IPhoneStoryboard.storyboard */,
 				5BBF347D1593490A00874C1F /* QuasselCoreConnection.h */,
@@ -589,6 +594,7 @@
 				5BFA9C601591CC00006861D2 /* AppDelegate.m in Sources */,
 				5BBF347F1593490A00874C1F /* QuasselCoreConnection.m in Sources */,
 				5BBF34831593602100874C1F /* QVariant.m in Sources */,
+				5B4A8C3F242FE305006C5169 /* UITextField+QuasselInputField.m in Sources */,
 				5BAFC0941594665E00ADBAE5 /* QBoolean.m in Sources */,
 				5BC23D0215AB091500D1A5A8 /* BufferInfo.m in Sources */,
 				5BCA88DA223A6A6900D80E6E /* DDLog.m in Sources */,
