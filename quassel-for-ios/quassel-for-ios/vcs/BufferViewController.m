@@ -32,6 +32,8 @@
 @synthesize rewindButton;
 @synthesize forwardButton;
 
+@synthesize jpqButton;
+
 @synthesize actionSheet;
 @synthesize messageClipboardString;
 @synthesize messageUrls;
@@ -117,6 +119,9 @@
     rewindButton.style = UIBarButtonItemStyleBordered;
     forwardButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(forwardPressed)];
     forwardButton.style = UIBarButtonItemStyleBordered;
+
+    jpqButton = [[UIBarButtonItem alloc] initWithTitle:@"J/P/Q" style:UIBarButtonItemStylePlain target:self action:@selector(jpqPressed)];
+    jpqButton.style = UIBarButtonItemStyleBordered;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:)
                                                  name:UIKeyboardWillShowNotification object:nil];
@@ -311,7 +316,7 @@
     } else {
     }
 
-    self.toolbarItems = [NSArray arrayWithObjects:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],rewindButton,forwardButton,nil];
+    self.toolbarItems = [NSArray arrayWithObjects:jpqButton,[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],rewindButton,forwardButton,nil];
 
 }
 
@@ -540,6 +545,14 @@
 
     Message *message = [messages objectAtIndex:indexPath.row];
 
+    if (NO == [[AppDelegate instance]isJpqShown:bufferId]) {
+        if (   (message.messageType & MessageTypeJoin)
+            || (message.messageType & MessageTypePart)
+            || (message.messageType & MessageTypeQuit)) {
+            return 0;
+        }
+    }
+
     NSString *text = [self textForMessage:message];
     
     CGSize constraint = CGSizeMake(tableView.bounds.size.width - (CELL_CONTENT_MARGIN * 2), 20000.0f);
@@ -685,6 +698,17 @@
 - (void) rewindPressed
 {
     [[AppDelegate instance] goToPreviousBuffer];
+}
+
+
+- (void) jpqPressed
+{
+    [[AppDelegate instance] toggleJpqShown:bufferId];
+    [self.tableView reloadData];
+
+    // FIXME: This is annoying but not doing anything is annoying too
+    //[self.tableView setContentOffset:CGPointMake(0.0,CGFLOAT_MAX) animated:false];
+    // FIXME: Try to remember where we were and then scroll back there?
 }
 
 - (void) disconnectPressed

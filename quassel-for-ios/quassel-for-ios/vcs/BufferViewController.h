@@ -46,6 +46,8 @@
 @property (strong, nonatomic) UIBarButtonItem *rewindButton;
 @property (strong, nonatomic) UIBarButtonItem *forwardButton;
 
+@property (strong, nonatomic) UIBarButtonItem *jpqButton; // joins parts quits
+
 @property (strong, nonatomic) UIActionSheet *actionSheet;
 @property (strong, nonatomic) NSString *messageClipboardString;
 @property (strong, nonatomic) NSArray *messageUrls;

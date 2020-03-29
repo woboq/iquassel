@@ -380,6 +380,7 @@ void myExceptionHandler (NSException *exception)
                 
 - (void) updateLastSeenOrBadge:(BufferId*)bufferId messageId:(MsgId*)msgId
 {
+    NSLog(@"updateLastSeenOrBadge %@ %@", bufferId, msgId);
     if ( [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
         [quasselCoreConnection setLastSeenMsg:msgId forBuffer:bufferId];
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:-1];
@@ -526,4 +527,15 @@ void myExceptionHandler (NSException *exception)
     return commands;
 }
 
+// FIXME: Find out if users want this as a channel/buffer specific setting?
+static BOOL jpqShown = YES;
+- (void)toggleJpqShown:(BufferId*)bufferId
+{
+    jpqShown = !jpqShown;
+}
+
+- (BOOL)isJpqShown:(BufferId*)bufferId
+{
+    return jpqShown;
+}
 @end
