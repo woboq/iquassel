@@ -280,7 +280,7 @@
         cell.textLabel.text = bufferInfo.bufferName;
         // Configure the cell...
         
-        //NSLog(@"formatCell buffer %d %@ %d", bufferId.intValue, bufferInfo.bufferName, bufferInfo.bufferActivity);
+        NSLog(@"formatCell buffer %d %@ %d %d", bufferId.intValue, bufferInfo.bufferName, bufferInfo.bufferActivity, bufferActivity);
         
         if (bufferActivity & BufferActivityNewMessage) {
             cell.backgroundColor = [UIColor systemGray5Color];
