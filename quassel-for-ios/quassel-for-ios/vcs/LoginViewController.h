@@ -17,7 +17,6 @@
 
 @property (nonatomic,strong) IBOutlet UIButton *quasselButton;
 @property (nonatomic,strong) IBOutlet UIButton *woboqButton;
-@property (nonatomic,strong) IBOutlet UIButton *cooleDingeButton;
 
 @property (nonatomic) BOOL autoConnect;
 

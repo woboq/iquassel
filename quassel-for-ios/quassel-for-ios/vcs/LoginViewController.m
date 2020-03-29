@@ -21,7 +21,6 @@
 
 @synthesize quasselButton;
 @synthesize woboqButton;
-@synthesize cooleDingeButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,9 +45,6 @@
 //    AppDelegate *app =  (AppDelegate*)[[UIApplication sharedApplication] delegate];
 //    self.splitViewController.delegate = app;
     autoConnect = NO;
-    
-    cooleDingeButton.enabled = NO;
-    [cooleDingeButton removeFromSuperview];
 
     self.navigationController.toolbarHidden = YES;
 }
@@ -100,15 +96,18 @@
         errroLabel.numberOfLines = 0;
         //errroLabel.textAlignment = UITextAlignmentCenter;
         //errroLabel.lineBreakMode = UILineBreakModeWordWrap;
-        errroLabel.text = @"Welcome to iQuassel!\n\nThis is a client for the Quassel IRC system.\n\nYou need an account on a Quassel core to use it.\n\nIf you need help, we are on \n#woboquassel on irc.freenode.net";
+        errroLabel.text = @"Welcome to iQuassel!\n\nThis is a client for the Quassel IRC system.\n\nYou need an account on a Quassel core to use it.\n\nIf you need help, we are on \n#woboquassel on irc.freenode.net\n\nGitHub: https://github.com/woboq/iquassel";
     }
     errroLabel.textColor = [UIColor labelColor];
     errroLabel.hidden = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) && UIInterfaceOrientationIsLandscape(self.interfaceOrientation);
     
     [quasselButton addTarget:self action:@selector(quasselButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [woboqButton addTarget:self action:@selector(woboqButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-    [cooleDingeButton addTarget:self action:@selector(cooleDingeButtonTouched) forControlEvents:UIControlEventTouchUpInside];
- 
+
+    errroLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture =
+    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(errorLabelTouched)];
+    [errroLabel addGestureRecognizer:tapGesture];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -127,13 +126,9 @@
     
 }
 
-- (void) cooleDingeButtonTouched
+- (void) errorLabelTouched
 {
-    //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fb://page/349597435126516"]];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fb://349597435126516"]];
-
-                                                                                //349597435126516
-
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/woboq/iquassel"]];
 }
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

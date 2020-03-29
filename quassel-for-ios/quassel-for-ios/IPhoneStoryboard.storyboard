@@ -56,13 +56,6 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="56v-1e-c7N">
-                                <rect key="frame" x="282" y="360" width="31" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="cooledinge.png">
-                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nmv-uM-4Ap">
                                 <rect key="frame" x="20" y="247" width="335" height="355"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -114,7 +107,6 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="connectButton" destination="ibT-5L-j4F" id="7Ql-9W-khE"/>
-                        <outlet property="cooleDingeButton" destination="56v-1e-c7N" id="5rJ-mx-SMK"/>
                         <outlet property="errroLabel" destination="nmv-uM-4Ap" id="j14-DS-vgX"/>
                         <outlet property="hostNameField" destination="lep-SB-sh7" id="7Rm-t6-8Qt"/>
                         <outlet property="passWordField" destination="X6p-ek-ze8" id="LgQ-bA-mqC"/>
@@ -341,7 +333,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="cooledinge.png" width="100" height="83"/>
         <image name="quasselicon.png" width="132" height="134"/>
         <image name="woboq.png" width="508" height="194"/>
     </resources>
