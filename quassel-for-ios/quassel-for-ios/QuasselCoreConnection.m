@@ -1251,12 +1251,14 @@
     [delegate quasselConnected];
 
     NSDictionary *initial = [NSMutableDictionary dictionaryWithCapacity:7];
-    [initial setValue:[[QVariant alloc] initWithString:@"Jun 10 2012 17:00:00"] forKey:@"ClientDate"];
+    NSString *dateStr = [NSString stringWithFormat:@"%@ %@", [NSString stringWithUTF8String:__DATE__], [NSString stringWithUTF8String:__TIME__]];
+    [initial setValue:[[QVariant alloc] initWithString:dateStr] forKey:@"ClientDate"];
     [initial setValue:[[QVariant alloc] initWithBoolean:YES] forKey:@"UseSsl"];
-    [initial setValue:[[QVariant alloc] initWithString:@"Quassel for iOS"] forKey:@"ClientVersion"];
+    NSString *version =[[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleShortVersionString"];
+    NSString *stringVersion = [NSString stringWithFormat:@"iQuassel %@", version];
+    [initial setValue:[[QVariant alloc] initWithString:stringVersion] forKey:@"ClientVersion"];
     [initial setValue:[[QVariant alloc] initWithBoolean:YES] forKey:@"UseCompression"];
     [initial setValue:[[QVariant alloc] initWithString:@"ClientInit"] forKey:@"MsgType"];
-    [initial setValue:[[QVariant alloc] initWithString:@"Quassel for iOS"] forKey:@"ClientVersion"];
     [initial setValue:[[QVariant alloc] initWithInteger:[NSNumber numberWithInt:10]] forKey:@"ProtocolVersion"];
 
     [self sendQVariantMap:initial];
