@@ -363,6 +363,8 @@
 {
     NSLog(@"BufferListViewController viewWillAppear");
 
+    self.view.backgroundColor = [UIColor systemBackgroundColor];
+
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         
     } else {

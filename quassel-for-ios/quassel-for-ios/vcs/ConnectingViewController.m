@@ -47,6 +47,8 @@
 {
     NSLog(@"<------- ConnectingViewController viewWillAppear");
     self.navigationItem.hidesBackButton = YES;
+
+    self.view.backgroundColor = [UIColor systemBackgroundColor];
 }
 
 - (void) viewDidAppear:(BOOL)animated

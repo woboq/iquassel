@@ -63,6 +63,11 @@
     //[UIView setAnimationsEnabled:YES];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.view.backgroundColor = [UIColor systemBackgroundColor];
+}
+
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];

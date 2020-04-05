@@ -49,6 +49,9 @@
 {
     //self.navigationController.viewControllers = [NSArray arrayWithObjects:[self.navigationController.viewControllers objectAtIndex:0],self , nil];
 
+    self.view.backgroundColor = [UIColor systemBackgroundColor];
+
+
     if (errorString) {
         errorLabel.text = errorString;
     } else {
