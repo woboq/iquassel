@@ -282,19 +282,18 @@
         
         //NSLog(@"formatCell buffer %d %@ %d", bufferId.intValue, bufferInfo.bufferName, bufferInfo.bufferActivity);
         
-        cell.textLabel.backgroundColor = [UIColor clearColor];
         if (bufferActivity & BufferActivityNewMessage) {
+            cell.backgroundColor = [UIColor systemGray5Color];
             cell.textLabel.textColor = [UIColor systemBlueColor];
-            cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.99 alpha:1]; // XXX not following HI Guidelines
         } else if (bufferActivity & BufferActivityOtherActivity) {
+            cell.backgroundColor = [UIColor systemGray5Color];
             cell.textLabel.textColor = [UIColor systemGreenColor];
-            cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.99 blue:0.95 alpha:1]; // XXX not following HI Guidelines
         } else if (bufferActivity & BufferActivityHighlight) {
+            cell.backgroundColor = [UIColor systemGray5Color];
             cell.textLabel.textColor = [UIColor orangeColor];
-            cell.backgroundColor = [UIColor colorWithRed:0.99 green:0.95 blue:0.95 alpha:1]; // XXX not following HI Guidelines
         } else {
-            cell.textLabel.textColor = [UIColor labelColor];
             cell.backgroundColor = [UIColor systemBackgroundColor];
+            cell.textLabel.textColor = [UIColor labelColor];
         }
     }
 }
