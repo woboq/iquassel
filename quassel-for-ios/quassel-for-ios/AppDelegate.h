@@ -42,7 +42,7 @@
 @property (nonatomic) BOOL shouldAutoReconnect;
 - (void) doReconnectIfNecessary;
 
-- (void)toggleJpqShown:(BufferId*)bufferId;
+- (BOOL)toggleJpqShown:(BufferId*)bufferId;
 - (BOOL)isJpqShown:(BufferId*)bufferId;
 
 @end

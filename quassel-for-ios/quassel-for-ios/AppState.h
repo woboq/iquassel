@@ -10,4 +10,6 @@
 + (void) setLastSelectedBufferId:(BufferId *)lastSelectedBufferId;
 + (BufferId*) getLastSelectedBufferId;
 
++ (NSUserDefaults*) preferences;
+
 @end

@@ -527,15 +527,22 @@ void myExceptionHandler (NSException *exception)
     return commands;
 }
 
-// FIXME: Find out if users want this as a channel/buffer specific setting?
-static BOOL jpqShown = YES;
-- (void)toggleJpqShown:(BufferId*)bufferId
+- (BOOL)toggleJpqShown:(BufferId*)bufferId
 {
+    NSUserDefaults *prefs = [AppState preferences];
+    BOOL jpqShown = [self isJpqShown:bufferId];
     jpqShown = !jpqShown;
+    NSString *prefKey = [NSString stringWithFormat:@"%d.jpqShown",bufferId.intValue];
+    [prefs setBool:jpqShown forKey:prefKey];
+    return jpqShown;
 }
 
 - (BOOL)isJpqShown:(BufferId*)bufferId
 {
+    NSUserDefaults *prefs = [AppState preferences];
+    // Default is false, that's fine
+    NSString *prefKey = [NSString stringWithFormat:@"%d.jpqShown",bufferId.intValue];
+    BOOL jpqShown = [prefs boolForKey:prefKey];
     return jpqShown;
 }
 @end
