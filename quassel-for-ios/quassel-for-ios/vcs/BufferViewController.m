@@ -709,6 +709,8 @@
     // FIXME: This is annoying but not doing anything is annoying too
     //[self.tableView setContentOffset:CGPointMake(0.0,CGFLOAT_MAX) animated:false];
     // FIXME: Try to remember where we were and then scroll back there?
+
+    [self.tableView flashScrollIndicators];
 }
 
 - (void) disconnectPressed
