@@ -339,6 +339,9 @@
             [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
         }
     }
+
+    BOOL jpqShown = [[AppDelegate instance] isJpqShown:bufferId];
+    if (jpqShown) jpqButton.tintColor = [UIColor systemPurpleColor]; else jpqButton.tintColor = [UIColor systemGrayColor];
 }
 
 - (void) setCurrentBufferId:(BufferId*)bI
@@ -356,7 +359,11 @@
     self.title = [[quasselCoreConnection.bufferIdBufferInfoMap objectForKey:bI] bufferName];
     self.bufferType = [[quasselCoreConnection.bufferIdBufferInfoMap objectForKey:bI] bufferType];
     self.messages = [quasselCoreConnection.bufferIdMessageListMap objectForKey:bI];
-    
+
+    // Note: Sometimes no jpqButton yet, then it's dine in viewDidAppear
+    BOOL jpqShown = [[AppDelegate instance] isJpqShown:bufferId];
+    if (jpqShown) jpqButton.tintColor = [UIColor systemPurpleColor]; else jpqButton.tintColor = [UIColor systemGrayColor];
+
     [self.tableView reloadData];
        
     // Scroll down
@@ -703,7 +710,7 @@
 
 - (void) jpqPressed
 {
-    [[AppDelegate instance] toggleJpqShown:bufferId];
+    BOOL jpqShown = [[AppDelegate instance] toggleJpqShown:bufferId];
     [self.tableView reloadData];
 
     // FIXME: This is annoying but not doing anything is annoying too
@@ -711,6 +718,8 @@
     // FIXME: Try to remember where we were and then scroll back there?
 
     [self.tableView flashScrollIndicators];
+
+    if (jpqShown) jpqButton.tintColor = [UIColor systemPurpleColor]; else jpqButton.tintColor = [UIColor systemGrayColor];
 }
 
 - (void) disconnectPressed
