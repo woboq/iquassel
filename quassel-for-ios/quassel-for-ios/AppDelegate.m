@@ -69,6 +69,7 @@ void myExceptionHandler (NSException *exception)
 
 - (void) endBgTask
 {
+    NSLog(@"endBgTask %d", bgTask);
     UIApplication *app = [UIApplication sharedApplication];
     if (bgTask != UIBackgroundTaskInvalid) {
         NSLog(@"BACKGROUNDHANDLER endBgTask Actually ending it %lu", (unsigned long)bgTask);
@@ -85,9 +86,7 @@ void myExceptionHandler (NSException *exception)
 - (void) doBackground:(NSNotification *)aNotification {
     UIApplication *app = [UIApplication sharedApplication];
 
-
-    NSLog(@"BACKGROUNDHANDLER We entered the background, trying to postpone it, we would get killedin %f seconds", [app backgroundTimeRemaining]);
-    if ([app respondsToSelector:@selector(beginBackgroundTaskWithExpirationHandler:)]) {
+    NSLog(@"BACKGROUNDHANDLER We entered the background, trying to postpone it");
         bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
             // Synchronize the cleanup call on the main thread in case
             // the task actually finishes at around the same time.
@@ -102,8 +101,11 @@ void myExceptionHandler (NSException *exception)
                 [selfCpy endBgTask];
             });
         }];
+    if (bgTask!=UIBackgroundTaskInvalid) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSLog(@"BACKGROUNDHANDLER Will get killed in %f seconds", [app backgroundTimeRemaining]);
+        });
     }
-    
 }
 
 							
