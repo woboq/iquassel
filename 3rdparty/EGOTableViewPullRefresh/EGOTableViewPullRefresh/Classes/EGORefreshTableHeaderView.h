@@ -34,8 +34,7 @@ typedef enum{
 } EGOPullState;
 
 #define DEFAULT_ARROW_IMAGE         [UIImage imageNamed:@"blueArrow.png"]
-#define DEFAULT_BACKGROUND_COLOR    [UIColor systemGray4Color]
-#define DEFAULT_TEXT_COLOR          [UIColor secondaryLabelColor]
+
 #define DEFAULT_ACTIVITY_INDICATOR_STYLE    UIActivityIndicatorViewStyleGray
 
 #define FLIP_ANIMATION_DURATION 0.18f

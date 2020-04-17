@@ -157,8 +157,14 @@
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor textColor:(UIColor *) textColor arrowImage:(UIImage *) arrowImage
 {
-    self.backgroundColor = backgroundColor? backgroundColor : DEFAULT_BACKGROUND_COLOR;
-    _statusLabel.textColor = textColor? textColor: DEFAULT_TEXT_COLOR;
+    if (@available(iOS 13.0, *)) {
+        self.backgroundColor = backgroundColor? backgroundColor : [UIColor systemGray4Color];
+        _statusLabel.textColor = textColor? textColor: [UIColor secondaryLabelColor];
+    } else {
+        self.backgroundColor = backgroundColor? backgroundColor : [UIColor colorWithRed:226.0/255.0 green:231.0/255.0 blue:237.0/255.0 alpha:1.0];
+        _statusLabel.textColor = textColor? textColor: [UIColor colorWithRed:87.0/255.0 green:108.0/255.0 blue:137.0/255.0 alpha:1.0];
+    }
+
     _statusLabel.shadowColor = [_statusLabel.textColor colorWithAlphaComponent:0.1f];
     _arrowImage.contents = (id)(arrowImage? arrowImage.CGImage : DEFAULT_ARROW_IMAGE.CGImage);
 }

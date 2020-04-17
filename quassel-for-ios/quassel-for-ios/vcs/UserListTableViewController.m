@@ -23,7 +23,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.view.backgroundColor = [UIColor systemBackgroundColor];
+    if (@available(iOS 13.0, *)) {
+        self.view.backgroundColor = [UIColor systemBackgroundColor];
+    } else {
+    }
 }
 
 - (void) viewDidAppear:(BOOL)animated

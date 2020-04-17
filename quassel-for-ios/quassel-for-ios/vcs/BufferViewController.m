@@ -154,7 +154,11 @@
     inputTextField.inputAccessoryView = tabKeyToolbar;
     [inputTextField addTarget:self action:@selector(keyboardCallback)
     forControlEvents:UIControlEventEditingChanged];
-    self.tableView.backgroundColor = [UIColor systemBackgroundColor];
+    if (@available(iOS 13.0, *)) {
+        self.tableView.backgroundColor = [UIColor systemBackgroundColor];
+    } else {
+        self.tableView.backgroundColor = [UIColor whiteColor];
+    }
     
     
     self.pullTableView.pullDelegate = self;
@@ -505,7 +509,6 @@
   
     cell.textLabel.text = [self textForMessage:message];
 
-    
     if (message.messageFlag & MessageFlagHilight) {
         cell.backgroundColor = [UIColor systemOrangeColor];
     } else {
@@ -525,7 +528,11 @@
         message.messageType == MessageTypeServer) {
         cell.textLabel.textColor = [UIColor systemPurpleColor];
     } else {
-        cell.textLabel.textColor = [UIColor labelColor];
+        if (@available(iOS 13.0, *)) {
+            cell.textLabel.textColor = [UIColor labelColor];
+        } else {
+            cell.textLabel.textColor = [UIColor blackColor];
+        }
     }
     
     if ([cell.textLabel respondsToSelector:@selector(attributedText)]) {

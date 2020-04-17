@@ -283,17 +283,37 @@
         NSLog(@"formatCell buffer %d %@ %d %d", bufferId.intValue, bufferInfo.bufferName, bufferInfo.bufferActivity, bufferActivity);
         
         if (bufferActivity & BufferActivityNewMessage) {
-            cell.backgroundColor = [UIColor systemGray5Color];
-            cell.textLabel.textColor = [UIColor systemBlueColor];
+            if (@available(iOS 13.0, *)) {
+                cell.backgroundColor = [UIColor systemGray5Color];
+                cell.textLabel.textColor = [UIColor systemBlueColor];
+            } else {
+                cell.backgroundColor = [UIColor colorWithWhite: 0.9 alpha:1];
+                cell.textLabel.textColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.7 alpha:1];
+            }
         } else if (bufferActivity & BufferActivityOtherActivity) {
-            cell.backgroundColor = [UIColor systemGray5Color];
-            cell.textLabel.textColor = [UIColor systemGreenColor];
+            if (@available(iOS 13.0, *)) {
+                cell.backgroundColor = [UIColor systemGray5Color];
+                cell.textLabel.textColor = [UIColor systemGreenColor];
+            } else {
+                cell.backgroundColor = [UIColor colorWithWhite: 0.9 alpha:1];
+                cell.textLabel.textColor = [UIColor colorWithRed:0.1 green:0.7 blue:0.1 alpha:1];
+            }
         } else if (bufferActivity & BufferActivityHighlight) {
-            cell.backgroundColor = [UIColor systemGray5Color];
-            cell.textLabel.textColor = [UIColor orangeColor];
+            if (@available(iOS 13.0, *)) {
+                cell.backgroundColor = [UIColor systemGray5Color];
+                cell.textLabel.textColor = [UIColor systemOrangeColor];
+            } else {
+                cell.backgroundColor = [UIColor colorWithWhite: 0.9 alpha:1];
+                cell.textLabel.textColor = [UIColor orangeColor];
+            }
         } else {
-            cell.backgroundColor = [UIColor systemBackgroundColor];
-            cell.textLabel.textColor = [UIColor labelColor];
+            if (@available(iOS 13.0, *)) {
+                cell.backgroundColor = [UIColor systemBackgroundColor];
+                cell.textLabel.textColor = [UIColor labelColor];
+            } else {
+               cell.backgroundColor = [UIColor clearColor];
+                cell.textLabel.textColor = [UIColor blackColor];
+            }
         }
     }
 }
@@ -362,7 +382,11 @@
 {
     NSLog(@"BufferListViewController viewWillAppear");
 
-    self.view.backgroundColor = [UIColor systemBackgroundColor];
+    if (@available(iOS 13.0, *)) {
+        self.view.backgroundColor = [UIColor systemBackgroundColor];
+    } else {
+        // Fallback on earlier versions
+    }
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         
