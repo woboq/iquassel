@@ -15,7 +15,8 @@
 - (void) quasselAuthenticated;
 - (void) quasselBufferListReceived;
 - (void) quasselNetworkInitReceived:(NSString*)networkName;
-- (void) quasselAllNetworkInitReceived;
+- (void) quasselAllNetworkInitReceived; // FIXME: misnomer since we have quasselFullyConnected
+- (void) quasselFullyConnected;
 - (void) quasselBufferListUpdated;
 - (void) quasselSocketDidDisconnect:(NSString*)msg;
 

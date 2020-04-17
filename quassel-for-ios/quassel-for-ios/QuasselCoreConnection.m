@@ -249,12 +249,10 @@
     }
 
 
-//    networkInitsReceived++;
-//    if (networkInitsReceived == neworkIdList.count ) {
-//        [delegate quasselAllNetworkInitReceived];
-//    } else {
-//        [delegate quasselNetworkInitReceived:networkName];
-//    }
+    networkInitsReceived++;
+    if (networkInitsReceived == neworkIdList.count ) {
+        [delegate quasselFullyConnected];
+    }
 }
 
 

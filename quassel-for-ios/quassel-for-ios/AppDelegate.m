@@ -445,6 +445,11 @@ void myExceptionHandler (NSException *exception)
     }
 }
 
+- (void) quasselFullyConnected
+{
+
+}
+
 - (void) doReconnectIfNecessary
 {
     if (shouldAutoReconnect
