@@ -1137,7 +1137,6 @@
         // FIXME We assume that the third case cannot be
         NSLog(@"backlogMessagesReceived THIRD CASE!");
     }
-
 }
 
 
@@ -1382,6 +1381,30 @@
         return BufferActivityNoActivity;
     return (enum BufferActivity)[activity intValue];
 }
+
+-(int) computeUnreadCountForAllBuffers {
+    int count = 0;
+    for (BufferId *bufferId in self.visibleBufferIdsList) {
+        count += [self computeUnreadCountForBuffer:bufferId];
+    }
+    return count;
+}
+
+- (int) computeRelevantUnreadCount {
+    int count = 0;
+    for (BufferId *bufferId in self.visibleBufferIdsList) {
+        BufferInfo *bufferInfo = [self.bufferIdBufferInfoMap objectForKey:bufferId];
+        if (bufferInfo.bufferType == QueryBuffer) {
+            int thisBufferCount = [self computeUnreadCountForBuffer:bufferId];
+            NSLog(@"%@ -> %d", bufferInfo.bufferName, thisBufferCount);
+            count += thisBufferCount;
+        } else if (bufferInfo.bufferType == ChannelBuffer) {
+            // FIXME add if highlight
+        }
+    }
+    return count;
+}
+
 
 - (void) computeBufferActivityForBuffer:(BufferId*)bufferId
 {

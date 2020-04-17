@@ -83,6 +83,8 @@
 - (void) computeBufferActivityForBuffer:(BufferId*)bufferId;
 
 - (int) computeUnreadCountForBuffer:(BufferId*)bufferId;
+- (int) computeUnreadCountForAllBuffers;
+- (int) computeRelevantUnreadCount;
 
 - (void) sendMessage:(NSString*)msg toBuffer:(BufferId*)bufferId;
 - (void) openQueryBufferForUser:(IrcUser*)user onNetwork:(NetworkId*)networkId;

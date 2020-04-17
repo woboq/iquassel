@@ -9,6 +9,7 @@
 #import "DDTTYLogger.h"
 #import "ConnectingViewController.h"
 #import "ErrorViewController.h"
+#import "QuasselBackgroundFetcher.h"
 
 #import "AppState.h"
 
@@ -45,7 +46,8 @@
     [TestFlight takeOff:@"c7d61f3a-8a1c-4b0a-ad5c-02bf0987114b"];
 //    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
 #endif
-    
+
+    // This is for getting backgrounded during running
     bgTask = UIBackgroundTaskInvalid;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(doBackground:)
@@ -53,7 +55,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(doForeground:)
                                                  name:UIApplicationWillEnterForegroundNotification object:nil];
-    
+    // This is for getting invoced newly in background
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval: UIApplicationBackgroundFetchIntervalMinimum];
+
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:-1];
     
     //NSSetUncaughtExceptionHandler (&myExceptionHandler);
@@ -127,10 +131,40 @@ void myExceptionHandler (NSException *exception)
 
 }
 
-- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    // FIXME: Check if really invisible
+- (UINavigationController*)navigationController {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
+        return [splitViewController.viewControllers lastObject];
+    } else {
+        return (UINavigationController*) self.window.rootViewController;
+    }
+}
 
-    // FIXME: Check if we have config
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    NSLog(@"performFetchWithCompletionHandler");
+
+    // Check if really in bg
+    if (application.applicationState != UIApplicationStateBackground) {
+        NSLog(@"Not in background");
+        completionHandler(UIBackgroundFetchResultFailed);
+        return;
+    }
+
+    NSLog(@"vc %@", self.window.rootViewController);
+    LoginViewController *loginVc = [[self navigationController].viewControllers objectAtIndex:0];
+    NSLog(@"loginVc %@", loginVc);
+
+    // Check if we have config
+    [loginVc loadViewIfNeeded];
+    if (loginVc.userNameField.text.length == 0) {
+        NSLog(@"no username %@",loginVc.userNameField.text);
+        completionHandler(UIBackgroundFetchResultFailed);
+        return;
+    }
+    NSLog(@"username %@",loginVc.userNameField.text);
+
+    QuasselBackgroundFetcher *backgroundFetcher = [[QuasselBackgroundFetcher alloc]initWithCompletionHandler:completionHandler];
+    [backgroundFetcher connectTo:loginVc.hostNameField.text port:[loginVc.portField.text intValue] userName:loginVc.userNameField.text passWord:loginVc.passWordField.text];
 
     // FIXME: Make sure we don't init any User/Network structures but just fetch all backlogs
 
@@ -140,6 +174,8 @@ void myExceptionHandler (NSException *exception)
     // http://nsscreencast.com/episodes/92-background-fetch
 
     // FIXME: idea: notifications for hilights, for message just unread count?
+
+    NSLog(@"Returning from fetch");
 }
 
 
@@ -385,11 +421,13 @@ void myExceptionHandler (NSException *exception)
     NSLog(@"updateLastSeenOrBadge %@ %@", bufferId, msgId);
     if ( [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
         [quasselCoreConnection setLastSeenMsg:msgId forBuffer:bufferId];
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:-1];
-    } else {
-        int unreadCount = [quasselCoreConnection computeUnreadCountForBuffer:bufferId];
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:unreadCount];
     }
+    [self updateAppBadge];
+}
+
+- (void) updateAppBadge {
+    int unreadCount = [quasselCoreConnection computeUnreadCountForAllBuffers]; // FIXME only relevant buffers
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:unreadCount];
 }
 
 - (void) quasselSocketFailedConnect:(NSString*)msg
@@ -411,8 +449,7 @@ void myExceptionHandler (NSException *exception)
 {
      [self.bufferListViewController reloadRowForBufferId:bufferId];
     
-    int unreadCount = [quasselCoreConnection computeUnreadCountForBuffer:bufferId];
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:unreadCount];
+    [self updateAppBadge];
 }
 
 - (void) quasselNetworkNameUpdated:(NetworkId*)networkId
