@@ -1423,26 +1423,24 @@
         return 0;
     NSArray *messages = [bufferIdMessageListMap objectForKey:bufferId];
     __block int unreadCount = 0;
+    __block BOOL seenAtAll = NO;
     [messages enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         MsgId *currentId = [obj messageId];
-        NSLog(@"Comparing %@ (current) with %@ (last seen)", currentId, lastSeenMsgId);
-        if ([currentId isEqual:lastSeenMsgId]) {
-            NSLog(@"EQUAL!");
+        //NSLog(@"Comparing %@ (current) with %@ (last seen) %@", currentId, lastSeenMsgId, [obj contents]);
+        if (lastSeenMsgId.intValue >= currentId.intValue) {
+            //NSLog(@"SEEN!");
+            seenAtAll = YES;
             *stop = YES;
             return;
         }
         unreadCount++;
     }];
-    return unreadCount;
-    //
-    //    for (int i = messages.count-1; i >= 0; i--)
-    //    {
-    //        if ([[[messages objectAtIndex:i] messageId] isEqual:lastSeenMsgId]) {
-    //            int unreadCount = messages.count - i - 1;
-    //            return unreadCount;
-    //        }
-    //    }
-    //    return messages.count;
+    if (seenAtAll) {
+        return unreadCount;
+    } else {
+        NSLog(@"Probably not seen");
+        return 0;
+    }
 }
 
 - (void) sendMessage:(NSString*)msg toBuffer:(BufferId*)bufferId
