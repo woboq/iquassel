@@ -197,7 +197,8 @@ void myExceptionHandler (NSException *exception)
     if ([self bufferViewController] && quasselCoreConnection) {
         BufferId *bufferId = [self bufferViewController].currentBufferId;
         NSArray *messages = [quasselCoreConnection.bufferIdMessageListMap objectForKey:bufferId];
-        [self updateLastSeenOrBadge:bufferId messageId:[[messages lastObject] messageId]];
+        [self updateLastSeen:bufferId messageId:[[messages lastObject] messageId]];
+        [self updateAppBadge];
     }
 
     [self performSelector:@selector(doReconnectIfNecessary) withObject:nil afterDelay:0.25];
@@ -365,7 +366,7 @@ void myExceptionHandler (NSException *exception)
         // Check detail view if if is relevant for this message
         if ([[bvc currentBufferId] isEqual:msg.bufferInfo.bufferId]) {
             [bvc addMessage:msg received:style onIndex:i];
-            [self updateLastSeenOrBadge:msg.bufferInfo.bufferId messageId:msg.messageId];
+            [self updateLastSeen:msg.bufferInfo.bufferId messageId:msg.messageId];
             return;
         } else if ([bvc currentBufferId]) {
             // If not, update bufferListViewController
@@ -374,6 +375,7 @@ void myExceptionHandler (NSException *exception)
         } else {
             NSLog(@"Not updating UI, we seem not to be fully loaded yet");
         }
+        [self updateAppBadge];
     } else if ([self bufferListViewController]) {
         // Happens on iPod only
         BufferListViewController* blVc = [self bufferListViewController];
@@ -397,7 +399,7 @@ void myExceptionHandler (NSException *exception)
         if ([[bvc currentBufferId] isEqual:bufferId]) {
             [bvc addMessages:messages received:style];
             Message *msg = [messages lastObject];
-            [self updateLastSeenOrBadge:msg.bufferInfo.bufferId messageId:msg.messageId];
+            [self updateLastSeen:msg.bufferInfo.bufferId messageId:msg.messageId];
             return;
         } else if ([bvc currentBufferId]) {
             // If not, update bufferListViewController
@@ -406,6 +408,7 @@ void myExceptionHandler (NSException *exception)
         } else {
             NSLog(@"Not updating UI, we seem not to be fully loaded yet");
         }
+        [self updateAppBadge];
     } else if ([self bufferListViewController]) {
         // Happens on iPod/iPhone only
         BufferListViewController* blVc = [self bufferListViewController];
@@ -416,13 +419,12 @@ void myExceptionHandler (NSException *exception)
     }
 }
                 
-- (void) updateLastSeenOrBadge:(BufferId*)bufferId messageId:(MsgId*)msgId
+- (void) updateLastSeen:(BufferId*)bufferId messageId:(MsgId*)msgId
 {
-    NSLog(@"updateLastSeenOrBadge %@ %@", bufferId, msgId);
+    NSLog(@"updateLastSeen %@ %@", bufferId, msgId);
     if ( [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
         [quasselCoreConnection setLastSeenMsg:msgId forBuffer:bufferId];
     }
-    [self updateAppBadge];
 }
 
 - (void) updateAppBadge {
