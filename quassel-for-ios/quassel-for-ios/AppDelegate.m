@@ -484,7 +484,10 @@ void myExceptionHandler (NSException *exception)
 
 - (void) quasselFullyConnected
 {
-
+    if(self.bufferViewController) {
+        // Hilight flags might be changed because we got the NetworkInit data
+        [self.bufferViewController.tableView reloadData];
+    }
 }
 
 - (void) doReconnectIfNecessary

@@ -255,9 +255,27 @@
     }
 
 
+    // Older cores don't set the Hilight flag (hilight is client side), so we manually hilight messages
+    // Go through all
+    NSArray *bufferIdsForNetwork = [networkIdBufferIdListMap objectForKey:networkId];
+    for(BufferId *bufferId in bufferIdsForNetwork) {
+        [self postProcessHilightForBuffer:bufferId];
+    }
+
     networkInitsReceived++;
     if (networkInitsReceived == neworkIdList.count ) {
         [delegate quasselFullyConnected];
+    }
+}
+
+- (void) postProcessHilightForBuffer:(BufferId*)bufferId
+{
+    NSMutableArray *messageList = [bufferIdMessageListMap objectForKey:bufferId];
+    for(Message*message in messageList) {
+        BOOL messageHasHilight = [self messageHasHilight:message];
+        if (messageHasHilight) {
+            message.messageFlag = message.messageFlag | MessageFlagHilight;
+        }
     }
 }
 
@@ -1121,10 +1139,12 @@
     //    for (int i = 0; i < messagesReceived.count; i++)
     //        NSLog(@"We want to add %d %@", i, [messagesReceived objectAtIndex:i]);
 
+
     if (!firstMessageWeHave && !lastMessageWeHave) {
         // Easy case: We have no messages yet
         NSLog(@"backlogMessagesReceived Easy case, no messages yet.");
         [messageList addObjectsFromArray:messagesReceived];
+        [self postProcessHilightForBuffer:bufferId];
         [self computeBufferActivityForBuffer:bufferId];
         [delegate quasselMessagesReceived:messagesReceived received:ReceiveStyleAppended];
 
@@ -1132,6 +1152,7 @@
         // FIXME Case1: Is lastReceivedMessage.id < firstMessageWeGot.id
         //NSLog(@"backlogMessagesReceived Would prepend %d messages", messagesReceived.count);
         [messageList insertObjects:messagesReceived atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, messagesReceived.count)]];
+        [self postProcessHilightForBuffer:bufferId];
         [self computeBufferActivityForBuffer:bufferId];
         [delegate quasselMessagesReceived:messagesReceived received:ReceiveStylePrepended];
 
@@ -1139,6 +1160,7 @@
         // FIXME Case2: Is firstReceivedMessage.id > lastMessageWeGot.id
         //NSLog(@"backlogMessagesReceived Would apppend %d messages", messagesReceived.count);
         [messageList addObjectsFromArray:messagesReceived];
+        [self postProcessHilightForBuffer:bufferId];
         [self computeBufferActivityForBuffer:bufferId];
         [delegate quasselMessagesReceived:messagesReceived received:ReceiveStyleAppended];
 
@@ -1146,6 +1168,17 @@
         // FIXME We assume that the third case cannot be
         NSLog(@"backlogMessagesReceived THIRD CASE!");
     }
+}
+
+- (BOOL) messageHasHilight:(Message*)message
+{
+    NetworkId *networkId = message.bufferInfo.networkId;
+    NSString *myNick = [self.networkIdMyNickMap objectForKey:networkId];
+    if (!myNick || myNick.length==0)return NO;
+    while ([myNick hasSuffix:@"_"]) myNick = [myNick substringToIndex:myNick.length-1];
+    if (myNick.length<=3)return NO;
+
+    return [message.contents.lowercaseString containsString:myNick.lowercaseString];
 }
 
 
@@ -1162,12 +1195,14 @@
 
     if (!firstMessage || !previousMessage || [previousMessage.messageId intValue] < [message.messageId intValue]) {
         [messageList addObject:message];
+        [self postProcessHilightForBuffer:bufferId];
         [self computeBufferActivityForBuffer:bufferId];
         //NSLog(@"messageReceived Appending message");
         [delegate quasselMessageReceived:message received:ReceiveStyleAppended onIndex:messageList.count-1];
     } else if ([firstMessage.messageId intValue] > [message.messageId intValue]) {
         //NSLog(@"messageReceived Prepending message");
         [messageList insertObject:message atIndex:0];
+        [self postProcessHilightForBuffer:bufferId];
         [self computeBufferActivityForBuffer:bufferId];
         [delegate quasselMessageReceived:message received:ReceiveStylePrepended onIndex:0];
     } else {
@@ -1193,6 +1228,7 @@
         } else {
             NSLog(@"messageReceived Inserting message at index %d", indexToUse);
             [messageList insertObject:message atIndex:indexToUse];
+            [self postProcessHilightForBuffer:bufferId];
             [self computeBufferActivityForBuffer:bufferId];
             [delegate quasselMessageReceived:message received:ReceiveStyleBacklog onIndex:indexToUse];
         }
