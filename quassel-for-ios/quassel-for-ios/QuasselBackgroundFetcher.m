@@ -95,10 +95,12 @@
 
 - (void) quasselFullyConnected {
     NSLog(@"Fully connected");
+    // FIXME only relevant buffers
     int unreadCount = [self.quasselCoreConnection computeUnreadCountForAllBuffers];// computeRelevantUnreadCount
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:unreadCount]; // FIXME only relevant buffers
-    NSLog(@"%d", unreadCount);
-    if (unreadCount > 0) {
+    NSInteger badgeBefore = [UIApplication sharedApplication].applicationIconBadgeNumber;
+    NSLog(@"unread before %ld now %d", (long)badgeBefore, unreadCount);
+    if (badgeBefore != unreadCount) {
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:unreadCount];
         self.fetchCompletionHandler(UIBackgroundFetchResultNewData);
         self.fetchCompletionHandler = nil;
     } else {
