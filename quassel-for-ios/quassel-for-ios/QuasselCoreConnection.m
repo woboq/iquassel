@@ -1468,6 +1468,9 @@
             NSLog(@"computeBufferActivityForBuffer %d RETURNING,LASTSEEN %@", idx, message);
             *stop = YES;
             return;
+        } else if (message.messageFlag & MessageFlagHilight) {
+            computedActivity = BufferActivityHighlight;
+            *stop = YES;
         } else if (message.messageType == MessageTypeAction
                    || message.messageType == MessageTypePlain) {
             computedActivity = BufferActivityNewMessage;
