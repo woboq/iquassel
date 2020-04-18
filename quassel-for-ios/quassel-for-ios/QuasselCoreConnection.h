@@ -35,6 +35,7 @@
 
 @property (nonatomic, strong) NSMutableArray *neworkIdList;
 @property (nonatomic, strong) NSMutableDictionary *networkIdNetworkNameMap;
+@property (nonatomic, strong) NSMutableDictionary *networkIdMyNickMap;
 @property (nonatomic, strong) NSMutableDictionary *bufferIdBufferInfoMap;
 @property (nonatomic, strong) NSMutableDictionary *networkIdBufferIdListMap;
 @property (nonatomic, strong) NSMutableDictionary *networkIdServerBufferInfoMap;

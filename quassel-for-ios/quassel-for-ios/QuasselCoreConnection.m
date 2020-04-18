@@ -34,6 +34,7 @@
 @synthesize networkIdBufferIdListMap;
 @synthesize neworkIdList;
 @synthesize networkIdNetworkNameMap;
+@synthesize networkIdMyNickMap;
 @synthesize bufferIdMessageListMap;
 @synthesize delegate;
 @synthesize networkIdServerBufferInfoMap;
@@ -85,6 +86,7 @@
     bufferIdBufferActivityMap = nil;
 
     networkIdNetworkNameMap = nil;
+    networkIdMyNickMap = nil;
 
     networkIdUserMapMap = nil;;
     networkInitsReceived = 0;
@@ -213,6 +215,10 @@
     NSString *networkName = [[initDict objectForKey:@"networkName"] string];
     [networkIdNetworkNameMap setObject:networkName forKey:networkId];
     [delegate quasselNetworkNameUpdated:networkId];
+
+    NSString *myNick = [[initDict objectForKey:@"myNick"] string];
+    [networkIdMyNickMap setObject:myNick forKey:networkId];
+    NSLog(@"myNick %@", myNick); // might be empty when disconnected
 
 
     NSDictionary *ircUsersAndChannels = [[initDict objectForKey:@"IrcUsersAndChannels"] dict];
@@ -419,6 +425,7 @@
                 //NSLog(@"networkIds = %@", networkIds);
                 neworkIdList = [[NSMutableArray alloc] initWithCapacity:networkIds.list.count];
                 networkIdNetworkNameMap = [NSMutableDictionary dictionaryWithCapacity:networkIds.list.count];
+                networkIdMyNickMap =  [NSMutableDictionary dictionaryWithCapacity:networkIds.list.count];
                 networkIdUserMapMap = [NSMutableDictionary dictionaryWithCapacity:neworkIdList.count];
                 networkIdChannelMapMap = [NSMutableDictionary dictionaryWithCapacity:neworkIdList.count];
                 [networkIds.list enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -898,6 +905,8 @@
                         [usersForNetwork removeObjectForKey:oldNick];
                         ircUser.nick = newNick;
                         [usersForNetwork setValue:ircUser forKey:newNick];
+
+                        // FIXME If it is our nick, should update networkIdMyNickMap too
                     } else {
                         NSLog(@"FIXME unknown __objectRenamed__ %@", class);
                     }
