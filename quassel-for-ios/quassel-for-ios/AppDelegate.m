@@ -10,6 +10,7 @@
 #import "ConnectingViewController.h"
 #import "ErrorViewController.h"
 #import "QuasselBackgroundFetcher.h"
+#import "PDKeychainBindings.h"
 
 #import "AppState.h"
 
@@ -148,28 +149,26 @@ void myExceptionHandler (NSException *exception)
         return;
     }
 
-    NSLog(@"vc %@", self.window.rootViewController);
-    LoginViewController *loginVc = [[self navigationController].viewControllers objectAtIndex:0];
-    NSLog(@"loginVc %@", loginVc);
-
-    // Check if we have config
-    [loginVc loadViewIfNeeded];
-    if (loginVc.userNameField.text.length == 0) {
-        NSLog(@"no username %@",loginVc.userNameField.text);
-        completionHandler(UIBackgroundFetchResultFailed);
-        return;
+    PDKeychainBindings *kc = [PDKeychainBindings sharedKeychainBindings];
+    NSString *userName = [kc objectForKey:@"userName"];
+    NSString *passWord = [kc objectForKey:@"passWord"];
+    NSString *hostName = [kc objectForKey:@"hostName"];
+    int port = [[kc objectForKey:@"port"] intValue];
+    if (!userName || userName.length==0 || !passWord || passWord.length==0
+        || !hostName || hostName.length == 0 || port==0) {
+            NSLog(@"no username");
+            completionHandler(UIBackgroundFetchResultFailed);
+            return;
     }
-    NSLog(@"username %@",loginVc.userNameField.text);
+    NSLog(@"username %@",userName);
 
     QuasselBackgroundFetcher *backgroundFetcher = [[QuasselBackgroundFetcher alloc]initWithCompletionHandler:completionHandler];
-    [backgroundFetcher connectTo:loginVc.hostNameField.text port:[loginVc.portField.text intValue] userName:loginVc.userNameField.text passWord:loginVc.passWordField.text];
+    [backgroundFetcher connectTo:hostName port:port userName:userName passWord:passWord];
 
     // FIXME: Make sure we don't init any User/Network structures but just fetch all backlogs
 
     // FIXME: Idea: Could remember all query buffers in NSUserDefaults or so and only fetch those
     // FIXME: Could even remember the last MsgId of each buffer so we don't need to fetch it all
-
-    // http://nsscreencast.com/episodes/92-background-fetch
 
     // FIXME: idea: notifications for hilights, for message just unread count?
 
