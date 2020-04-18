@@ -374,9 +374,10 @@ void myExceptionHandler (NSException *exception)
         }
         [self updateAppBadge];
     } else if ([self bufferListViewController]) {
-        // Happens on iPod only
+        // Happens on iPhone while being in buffer list
         BufferListViewController* blVc = [self bufferListViewController];
         [blVc reloadRowForBufferId:msg.bufferInfo.bufferId];
+        [self updateAppBadge];
     }
 }
 
