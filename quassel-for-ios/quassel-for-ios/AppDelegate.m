@@ -488,6 +488,9 @@ void myExceptionHandler (NSException *exception)
         // Hilight flags might be changed because we got the NetworkInit data
         [self.bufferViewController.tableView reloadData];
     }
+    if (self.bufferListViewController) {
+        [self.bufferListViewController.tableView reloadData];
+    }
 }
 
 - (void) doReconnectIfNecessary

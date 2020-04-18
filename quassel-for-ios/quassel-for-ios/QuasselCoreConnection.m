@@ -260,6 +260,7 @@
     NSArray *bufferIdsForNetwork = [networkIdBufferIdListMap objectForKey:networkId];
     for(BufferId *bufferId in bufferIdsForNetwork) {
         [self postProcessHilightForBuffer:bufferId];
+        [self computeBufferActivityForBuffer:bufferId];
     }
 
     networkInitsReceived++;
@@ -1172,10 +1173,12 @@
 
 - (BOOL) messageHasHilight:(Message*)message
 {
+    if (message.messageType!=MessageTypePlain)return NO;
     NetworkId *networkId = message.bufferInfo.networkId;
     NSString *myNick = [self.networkIdMyNickMap objectForKey:networkId];
     if (!myNick || myNick.length==0)return NO;
     while ([myNick hasSuffix:@"_"]) myNick = [myNick substringToIndex:myNick.length-1];
+    while ([myNick hasSuffix:@"-"]) myNick = [myNick substringToIndex:myNick.length-1];
     if (myNick.length<=3)return NO;
 
     return [message.contents.lowercaseString containsString:myNick.lowercaseString];
@@ -1444,7 +1447,11 @@
             NSLog(@"%@ -> %d", bufferInfo.bufferName, thisBufferCount);
             count += thisBufferCount;
         } else if (bufferInfo.bufferType == ChannelBuffer) {
-            // FIXME add if highlight
+            // For channels: add if highlight
+            NSNumber *activity = [bufferIdBufferActivityMap objectForKey:bufferId];
+            if (activity && [activity intValue] == BufferActivityHighlight) {
+                count += 1;
+            }
         }
     }
     return count;
