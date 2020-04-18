@@ -58,8 +58,6 @@
     // This is for getting invoced newly in background
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval: UIApplicationBackgroundFetchIntervalMinimum];
 
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:-1];
-    
     //NSSetUncaughtExceptionHandler (&myExceptionHandler);
     
     return YES;
