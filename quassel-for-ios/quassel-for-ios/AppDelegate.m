@@ -426,7 +426,7 @@ void myExceptionHandler (NSException *exception)
 }
 
 - (void) updateAppBadge {
-    int unreadCount = [quasselCoreConnection computeUnreadCountForAllBuffers]; // FIXME only relevant buffers
+    int unreadCount = [quasselCoreConnection computeRelevantUnreadCount];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:unreadCount];
 }
 

@@ -95,8 +95,7 @@
 
 - (void) quasselFullyConnected {
     NSLog(@"Fully connected");
-    // FIXME only relevant buffers
-    int unreadCount = [self.quasselCoreConnection computeUnreadCountForAllBuffers];// computeRelevantUnreadCount
+    int unreadCount = [self.quasselCoreConnection computeRelevantUnreadCount];
     NSInteger badgeBefore = [UIApplication sharedApplication].applicationIconBadgeNumber;
     NSLog(@"unread before %ld now %d", (long)badgeBefore, unreadCount);
     if (badgeBefore != unreadCount) {
