@@ -6,7 +6,6 @@
 #import "QuasselUtils.h"
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
-#import "PullTableView.h"
 #import "BufferViewTableCell.h"
 #import "UserListTableViewController.h"
 #import "SignedId.h"
@@ -14,6 +13,7 @@
 #define CELL_CONTENT_MARGIN 2.0f
 
 @interface BufferViewController ()
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -159,39 +159,21 @@
     } else {
         self.tableView.backgroundColor = [UIColor whiteColor];
     }
-    
-    
-    self.pullTableView.pullDelegate = self;
-}
 
-- (PullTableView*) pullTableView
-{
-    return (PullTableView*) self.tableView;
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(doRefresh) forControlEvents:UIControlEventValueChanged];
+    self.tableView.refreshControl = self.refreshControl;
+    
 }
 
 - (void) refreshTableDone
 {
-    self.pullTableView.pullLastRefreshDate = nil;
-    self.pullTableView.pullTableIsRefreshing = NO;
+    [self.refreshControl endRefreshing];
 }
 
-- (void) loadMoreTableDone
-{
-    self.pullTableView.pullTableIsLoadingMore = NO;
-}
-
-
-
-- (void)pullTableViewDidTriggerRefresh:(PullTableView *)pullTableView
-{
-    [self performSelector:@selector(refreshTableDone) withObject:nil afterDelay:3.0f];
+- (void)doRefresh {
     [self performSelector:@selector(fetchMoreBacklog) withObject:nil afterDelay:0];
-}
-
-- (void)pullTableViewDidTriggerLoadMore:(PullTableView *)pullTableView
-{
-    //self.pullTableView.pullTableIsLoadingMore = NO;
-    [self performSelector:@selector(loadMoreTableDone) withObject:nil afterDelay:0.5];
+    [self performSelector:@selector(refreshTableDone) withObject:nil afterDelay:3.0f];
 }
 
 

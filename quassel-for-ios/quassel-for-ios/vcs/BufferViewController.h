@@ -5,10 +5,9 @@
 #import "SignedId.h"
 #import "QuasselCoreConnection.h"
 #import "Message.h"
-#import "PullTableView.h"
 #import "UserListTableViewController.h"
 
-@interface BufferViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, PullTableViewDelegate, UIActionSheetDelegate>
+@interface BufferViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIActionSheetDelegate>
 {
     BufferId* bufferId;
     enum BufferType bufferType;
