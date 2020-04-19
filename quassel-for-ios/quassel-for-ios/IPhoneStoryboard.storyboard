@@ -265,7 +265,7 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="B8F-mc-89Z">
-                        <barButtonItem key="rightBarButtonItem" title="Users" id="lWU-an-Et9">
+                        <barButtonItem key="rightBarButtonItem" title="⚙️" id="lWU-an-Et9">
                             <connections>
                                 <segue destination="O1u-ym-bjs" kind="modal" identifier="ShowUserListSegue" id="zHr-w1-MmX"/>
                             </connections>

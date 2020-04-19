@@ -365,11 +365,11 @@
         //self.inputTextField.hidden = FALSE;
     }
 
-    if (self.bufferType == ChannelBuffer) {
+    //if (self.bufferType == ChannelBuffer) {
         self.navigationItem.rightBarButtonItem = userListButton;
-    }else {
-        self.navigationItem.rightBarButtonItem = nil;
-    }
+    //}else {
+    //    self.navigationItem.rightBarButtonItem = nil;
+    //}
 }
 
 - (BufferId*) currentBufferId
@@ -847,7 +847,11 @@
             userListTableViewControllerPopoverController = nil;
             userListTableViewController = ultvc;
         }
-        ultvc.nicks = [quasselCoreConnection ircUsersForChannelWithBufferId:bufferId];
+        if (self.bufferType == ChannelBuffer) {
+            ultvc.nicks = [quasselCoreConnection ircUsersForChannelWithBufferId:bufferId];
+        } else {
+            ultvc.nicks = @[];
+        }
         ultvc.callbackObject = self;
         ultvc.callbackSelector = @selector(userListUserPressed:);
 
