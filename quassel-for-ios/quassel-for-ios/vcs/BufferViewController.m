@@ -818,7 +818,7 @@
 
 }
 
-- (void) userListUsedPressed:(IrcUser*)user
+- (void) userListUserPressed:(IrcUser*)user
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [userListTableViewControllerPopoverController dismissPopoverAnimated:YES];
@@ -849,7 +849,7 @@
         }
         ultvc.nicks = [quasselCoreConnection ircUsersForChannelWithBufferId:bufferId];
         ultvc.callbackObject = self;
-        ultvc.callbackSelector = @selector(userListUsedPressed:);
+        ultvc.callbackSelector = @selector(userListUserPressed:);
 
     }
 }
