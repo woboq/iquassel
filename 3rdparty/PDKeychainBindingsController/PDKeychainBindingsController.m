@@ -81,18 +81,26 @@ static PDKeychainBindingsController *sharedInstance = nil;
     } else {
 #if TARGET_OS_IPHONE
         NSData *stringData = [string dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *spec = [NSDictionary dictionaryWithObjectsAndKeys:(id)kSecClassGenericPassword, kSecClass,
-                              key, kSecAttrAccount,[self serviceName], kSecAttrService, nil];
+        NSDictionary *spec = [NSDictionary dictionaryWithObjectsAndKeys:
+                              (id)kSecClassGenericPassword, kSecClass,
+                              key, kSecAttrAccount,
+                              [self serviceName], kSecAttrService,
+                              kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly, kSecAttrAccessible,
+                              nil];
         
         if(!string) {
             return !SecItemDelete((CFDictionaryRef)spec);
         }else if([self stringForKey:key]) {
             NSDictionary *update = [NSDictionary dictionaryWithObject:stringData forKey:(id)kSecValueData];
-            return !SecItemUpdate((CFDictionaryRef)spec, (CFDictionaryRef)update);
+            OSStatus s = SecItemUpdate((CFDictionaryRef)spec, (CFDictionaryRef)update);
+            NSLog(@"Keychain update for %@ gave %d", key, s);
+            return !s;
         }else{
             NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:spec];
             [data setObject:stringData forKey:(id)kSecValueData];
-            return !SecItemAdd((CFDictionaryRef)data, NULL);
+            OSStatus s = SecItemAdd((CFDictionaryRef)data, NULL);
+            NSLog(@"Keychain create for %@ gave %d", key, s);
+            return !s;
         }
 #else //OSX
         SecKeychainItemRef item = NULL;

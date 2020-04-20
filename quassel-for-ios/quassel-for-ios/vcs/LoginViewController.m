@@ -153,6 +153,12 @@
 {
     if ([segue.identifier isEqualToString:@"ConnectSegue"]) {
         PDKeychainBindings *kc = [PDKeychainBindings sharedKeychainBindings];
+        // Delete first so we can set security to kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+        [kc setObject:nil forKey:@"userName"];
+        [kc setObject:nil forKey:@"passWord"];
+        [kc setObject:nil forKey:@"hostName"];
+        [kc setObject:nil forKey:@"port"];
+        // Store
         [kc setObject:userNameField.text forKey:@"userName"];
         [kc setObject:passWordField.text forKey:@"passWord"];
         [kc setObject:hostNameField.text forKey:@"hostName"];
