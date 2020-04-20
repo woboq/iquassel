@@ -174,7 +174,7 @@
 
 - (void) fetchSomeBacklog:(BufferId*)bufferId
 {
-    [self fetchSomeBacklog:bufferId amount:30];
+    [self fetchSomeBacklog:bufferId amount:70];
 }
 
 
@@ -484,7 +484,7 @@
                 if (self.bufferIdToRestore && self.bufferIdToRestore.intValue > 0) {
                     NSLog(@"Early backlog fetch");
                     [backlogRequestedForAlreadyBufferIdSet addObject:self.bufferIdToRestore];
-                    [self fetchSomeBacklog:self.bufferIdToRestore amount:45];
+                    [self fetchSomeBacklog:self.bufferIdToRestore];
                 } else {
                     // No buffer to restore
                 }
@@ -1009,7 +1009,7 @@
                         BufferId* bufferId = [visibleBufferIdsList objectAtIndex:i];
                         if (![backlogRequestedForAlreadyBufferIdSet containsObject:bufferId]) {
                             [backlogRequestedForAlreadyBufferIdSet addObject:bufferId];
-                            [self fetchSomeBacklog:bufferId amount:45];
+                            [self fetchSomeBacklog:bufferId];
                         }
                     }
 
