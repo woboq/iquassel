@@ -89,6 +89,8 @@ void myExceptionHandler (NSException *exception)
 - (void) doBackground:(NSNotification *)aNotification {
     UIApplication *app = [UIApplication sharedApplication];
 
+    [self updateAppBadge];
+
     NSLog(@"BACKGROUNDHANDLER We entered the background, trying to postpone it");
         bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
             // Synchronize the cleanup call on the main thread in case
