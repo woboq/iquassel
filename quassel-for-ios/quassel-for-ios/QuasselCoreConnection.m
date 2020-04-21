@@ -238,7 +238,8 @@
 
     for (NSString *uhost in users) {
         NSDictionary *value = [[users objectForKey:uhost] dict];
-        IrcUser *user = [[IrcUser alloc] initWithUhost:uhost];
+        IrcUser *user = [[IrcUser alloc] initWithUhost:uhost]; // the uhosts are lowercased, actual nick is in dictionary
+        user.nick = [value[@"nick"] string]; // FIXME: Let's hope this does not break changing of nicks (/nick bla of someone)
         NSArray *channelsOfUser = [[value valueForKey:@"channels"] list];
         //NSLog(@"USER %@ CHANNELS %@", user.nick, channelsOfUser);
         [usersForNetwork setValue:user forKey:user.nick];
@@ -247,7 +248,6 @@
         for (NSString *channelOfUser in channelsOfUser) {
             [[channelsForNetwork valueForKey:channelOfUser] addUser:user];
         }
-
     }
 
     for (IrcChannel *ircChannel in channelsForNetwork.allValues) {
