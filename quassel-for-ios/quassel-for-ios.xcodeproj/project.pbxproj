@@ -18,6 +18,7 @@
 		5B1E6AF215AF57FB004253AF /* SplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1E6AF115AF57FB004253AF /* SplitViewController.m */; };
 		5B22B3A423C1DD3E00A9A57C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B22B3A323C1DD3E00A9A57C /* StoreKit.framework */; };
 		5B278653189A85E300A60066 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B278642189A85E300A60066 /* iTunesArtwork@2x.png */; };
+		5B2D6C36244DE14E00B7AF15 /* UserListTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B2D6C35244DE14E00B7AF15 /* UserListTableViewHeader.xib */; };
 		5B4156C915DD2E1500C60EE3 /* ErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4156C815DD2E1500C60EE3 /* ErrorViewController.m */; };
 		5B4156CE15DD3DC100C60EE3 /* AppState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4156CD15DD3DC100C60EE3 /* AppState.m */; };
 		5B4A8C3F242FE305006C5169 /* UITextField+QuasselInputField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A8C3E242FE305006C5169 /* UITextField+QuasselInputField.m */; };
@@ -25,6 +26,7 @@
 		5B60C5F12449E6FD009F5144 /* QuasselBackgroundFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B60C5F02449E6FD009F5144 /* QuasselBackgroundFetcher.m */; };
 		5B6169BC15FF7A9700F85FDE /* woboq.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B6169BB15FF7A9700F85FDE /* woboq.png */; };
 		5B6169C015FF7C8B00F85FDE /* quasselicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B6169BF15FF7C8B00F85FDE /* quasselicon.png */; };
+		5B75763A244DFAC000E59095 /* UserListTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B757639244DFAC000E59095 /* UserListTableViewHeader.m */; };
 		5B7FABDA162DEE380040076C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7FABD8162DEE300040076C /* QuartzCore.framework */; };
 		5B922B79189A917E00B898B7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B278636189A7FEB00A60066 /* Images.xcassets */; };
 		5BAA3FB9187E1D8B00A591DA /* IrcUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA3FB8187E1D8B00A591DA /* IrcUser.m */; };
@@ -97,6 +99,7 @@
 		5B278636189A7FEB00A60066 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5B278641189A85E300A60066 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		5B278642189A85E300A60066 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
+		5B2D6C35244DE14E00B7AF15 /* UserListTableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserListTableViewHeader.xib; sourceTree = "<group>"; };
 		5B4156C715DD2E1400C60EE3 /* ErrorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ErrorViewController.h; path = vcs/ErrorViewController.h; sourceTree = "<group>"; };
 		5B4156C815DD2E1500C60EE3 /* ErrorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ErrorViewController.m; path = vcs/ErrorViewController.m; sourceTree = "<group>"; };
 		5B4156CC15DD3DC100C60EE3 /* AppState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppState.h; sourceTree = "<group>"; };
@@ -108,6 +111,8 @@
 		5B60C5F02449E6FD009F5144 /* QuasselBackgroundFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuasselBackgroundFetcher.m; sourceTree = "<group>"; };
 		5B6169BB15FF7A9700F85FDE /* woboq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = woboq.png; sourceTree = "<group>"; };
 		5B6169BF15FF7C8B00F85FDE /* quasselicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = quasselicon.png; sourceTree = "<group>"; };
+		5B757638244DFAC000E59095 /* UserListTableViewHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserListTableViewHeader.h; sourceTree = "<group>"; };
+		5B757639244DFAC000E59095 /* UserListTableViewHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserListTableViewHeader.m; sourceTree = "<group>"; };
 		5B7FABD8162DEE300040076C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5B922B77189A8FAB00B898B7 /* quassel-for-ios-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "quassel-for-ios-Info.plist"; sourceTree = "<group>"; };
 		5BAA3FB7187E1D8B00A591DA /* IrcUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IrcUser.h; sourceTree = "<group>"; };
@@ -335,6 +340,9 @@
 				5B4A8C3E242FE305006C5169 /* UITextField+QuasselInputField.m */,
 				5BFA9C611591CC00006861D2 /* MainStoryboard.storyboard */,
 				5B5E566616B7954A005D442B /* IPhoneStoryboard.storyboard */,
+				5B2D6C35244DE14E00B7AF15 /* UserListTableViewHeader.xib */,
+				5B757638244DFAC000E59095 /* UserListTableViewHeader.h */,
+				5B757639244DFAC000E59095 /* UserListTableViewHeader.m */,
 				5BBF347D1593490A00874C1F /* QuasselCoreConnection.h */,
 				5BBF347E1593490A00874C1F /* QuasselCoreConnection.m */,
 				5B1E6AEC15AF490C004253AF /* QuasselCoreConnectionDelegate.h */,
@@ -469,6 +477,7 @@
 				5B922B79189A917E00B898B7 /* Images.xcassets in Resources */,
 				5BFA9C5A1591CC00006861D2 /* InfoPlist.strings in Resources */,
 				5B278653189A85E300A60066 /* iTunesArtwork@2x.png in Resources */,
+				5B2D6C36244DE14E00B7AF15 /* UserListTableViewHeader.xib in Resources */,
 				5BFA9C631591CC00006861D2 /* MainStoryboard.storyboard in Resources */,
 				5B6169BC15FF7A9700F85FDE /* woboq.png in Resources */,
 				5B6169C015FF7C8B00F85FDE /* quasselicon.png in Resources */,
@@ -527,6 +536,7 @@
 				5B0B19A815AC8ACA0016E069 /* SignedId.m in Sources */,
 				5B1E6AE715AF4821004253AF /* ConnectingViewController.m in Sources */,
 				5BCA88DD223A6A6900D80E6E /* DDASLLogger.m in Sources */,
+				5B75763A244DFAC000E59095 /* UserListTableViewHeader.m in Sources */,
 				5B1E6AEB15AF4889004253AF /* BufferListViewController.m in Sources */,
 				5B1E6AEF15AF5715004253AF /* BufferViewController.m in Sources */,
 				5B1E6AF215AF57FB004253AF /* SplitViewController.m in Sources */,

@@ -12,13 +12,20 @@
 @synthesize nicks, callbackObject, callbackSelector;
 @synthesize cancelButton;
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithCoder:(NSCoder *)coder
 {
-    self = [super initWithStyle:style];
+    self = [super initWithCoder:coder];
     if (self) {
-        // Custom initialization
+        NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"UserListTableViewHeader" owner:self options:nil];
+        self.userListTableViewHeader = [nibContents objectAtIndex:0];
     }
     return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.tableView.tableHeaderView = self.userListTableViewHeader;
+    [self.userListTableViewHeader setUp];
 }
 
 - (void)viewWillAppear:(BOOL)animated

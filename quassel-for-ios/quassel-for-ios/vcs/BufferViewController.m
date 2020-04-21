@@ -847,13 +847,40 @@
             userListTableViewControllerPopoverController = nil;
             userListTableViewController = ultvc;
         }
+
+        // Pressing a user
         if (self.bufferType == ChannelBuffer) {
             ultvc.nicks = [quasselCoreConnection ircUsersForChannelWithBufferId:bufferId];
+            [ultvc.userListTableViewHeader.badgeForHilightsOnlySwitch setEnabled:NO];
         } else {
             ultvc.nicks = @[];
+            [ultvc.userListTableViewHeader.badgeForHilightsOnlySwitch setEnabled:NO];
         }
         ultvc.callbackObject = self;
         ultvc.callbackSelector = @selector(userListUserPressed:);
+
+        // Pressing JPQ
+        if (self.bufferType == ChannelBuffer) {
+            BOOL jpqShown = [[AppDelegate instance] isJpqShown:bufferId];
+            [ultvc.userListTableViewHeader.showJPQSwitch setOn:jpqShown];
+            ultvc.userListTableViewHeader.jpqSwitchChangedTo = ^(bool on) {
+                [self jpqPressed];
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                    [userListTableViewControllerPopoverController dismissPopoverAnimated:YES];
+                } else {
+                    [userListTableViewController dismissViewControllerAnimated:YES completion:^{        }];
+                }
+            };
+        } else {
+            [ultvc.userListTableViewHeader.showJPQSwitch setEnabled:NO]; // only desktop client shows quits for the user, we dont
+        }
+
+        // FIXME Pressing hilight settings
+        if (self.bufferType == ChannelBuffer) {
+            [ultvc.userListTableViewHeader.badgeForHilightsOnlySwitch setEnabled:NO]; // FIXME
+        } else {
+            [ultvc.userListTableViewHeader.badgeForHilightsOnlySwitch setEnabled:NO];
+        }
 
     }
 }
