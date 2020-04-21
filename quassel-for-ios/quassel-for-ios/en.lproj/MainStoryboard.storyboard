@@ -280,7 +280,7 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="hRi-j7-Vuo">
-                        <barButtonItem key="rightBarButtonItem" title="Users" id="4ok-9s-jiw">
+                        <barButtonItem key="rightBarButtonItem" title="⚙️" id="4ok-9s-jiw">
                             <connections>
                                 <segue destination="S86-G1-l9B" kind="popover" identifier="ShowUserListSegue" popoverAnchorBarButtonItem="4ok-9s-jiw" id="7TX-Dr-XGq">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
