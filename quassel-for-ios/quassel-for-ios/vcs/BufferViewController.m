@@ -32,7 +32,7 @@
 @synthesize rewindButton;
 @synthesize forwardButton;
 
-@synthesize jpqButton;
+@synthesize jpqButton; // Not used anymore, can re-use for something else
 
 @synthesize actionSheet;
 @synthesize messageClipboardString;
@@ -122,7 +122,7 @@
 
     jpqButton = [[UIBarButtonItem alloc] initWithTitle:@"J/P/Q" style:UIBarButtonItemStylePlain target:self action:@selector(jpqPressed)];
     jpqButton.style = UIBarButtonItemStyleBordered;
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:)
                                                  name:UIKeyboardWillShowNotification object:nil];
     
@@ -302,7 +302,8 @@
     } else {
     }
 
-    self.toolbarItems = [NSArray arrayWithObjects:jpqButton,[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],rewindButton,forwardButton,nil];
+    // jpqButton not being added anymore, can re-use for something else
+    self.toolbarItems = [NSArray arrayWithObjects:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],rewindButton,forwardButton,nil];
 
 }
 
@@ -325,9 +326,6 @@
             [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
         }
     }
-
-    BOOL jpqShown = [[AppDelegate instance] isJpqShown:bufferId];
-    if (jpqShown) jpqButton.tintColor = [UIColor systemPurpleColor]; else jpqButton.tintColor = [UIColor systemGrayColor];
 }
 
 - (void) setCurrentBufferId:(BufferId*)bI
@@ -345,10 +343,6 @@
     self.title = [[quasselCoreConnection.bufferIdBufferInfoMap objectForKey:bI] bufferName];
     self.bufferType = [[quasselCoreConnection.bufferIdBufferInfoMap objectForKey:bI] bufferType];
     self.messages = [quasselCoreConnection.bufferIdMessageListMap objectForKey:bI];
-
-    // Note: Sometimes no jpqButton yet, then it's dine in viewDidAppear
-    BOOL jpqShown = [[AppDelegate instance] isJpqShown:bufferId];
-    if (jpqShown) jpqButton.tintColor = [UIColor systemPurpleColor]; else jpqButton.tintColor = [UIColor systemGrayColor];
 
     [self.tableView reloadData];
        
@@ -707,8 +701,6 @@
     // FIXME: Try to remember where we were and then scroll back there?
 
     [self.tableView flashScrollIndicators];
-
-    if (jpqShown) jpqButton.tintColor = [UIColor systemPurpleColor]; else jpqButton.tintColor = [UIColor systemGrayColor];
 }
 
 - (void) disconnectPressed
