@@ -1447,10 +1447,17 @@
             NSLog(@"%@ -> %d", bufferInfo.bufferName, thisBufferCount);
             count += thisBufferCount;
         } else if (bufferInfo.bufferType == ChannelBuffer) {
-            // For channels: add if highlight
-            NSNumber *activity = [bufferIdBufferActivityMap objectForKey:bufferId];
-            if (activity && [activity intValue] == BufferActivityHighlight) {
-                count += 1;
+            BOOL isBadgeForHilightsOnly = [[AppDelegate instance] isBadgeForHilightsOnly:bufferId];
+            if (isBadgeForHilightsOnly) {
+                NSNumber *activity = [bufferIdBufferActivityMap objectForKey:bufferId];
+                if (activity && [activity intValue] == BufferActivityHighlight) {
+                    NSLog(@"%@ -> 1 Add hilight only count", bufferInfo.bufferName);
+                    count += 1;
+                }
+            } else {
+                int thisBufferCount = [self computeUnreadCountForBuffer:bufferId];
+                NSLog(@"%@ -> %d", bufferInfo.bufferName, thisBufferCount);
+                count += thisBufferCount;
             }
         }
     }

@@ -869,9 +869,15 @@
 
         // FIXME Pressing hilight settings
         if (self.bufferType == ChannelBuffer) {
-            [ultvc.userListTableViewHeader.badgeForHilightsOnlySwitch setEnabled:NO]; // FIXME
+            [ultvc.userListTableViewHeader.badgeForHilightsOnlySwitch setEnabled:YES]; // FIXME
+            BOOL isBadgeForHilightsOnly = [[AppDelegate instance] isBadgeForHilightsOnly:bufferId];
+            [ultvc.userListTableViewHeader.badgeForHilightsOnlySwitch setOn:isBadgeForHilightsOnly];
+            ultvc.userListTableViewHeader.badgeForHilightsOnlySwitchChangedTo = ^(bool on) {
+                 [[AppDelegate instance] toggleBadgeForHilightsOnly:bufferId];
+            };
         } else {
             [ultvc.userListTableViewHeader.badgeForHilightsOnlySwitch setEnabled:NO];
+            [ultvc.userListTableViewHeader.badgeForHilightsOnlySwitch setOn:NO];
         }
 
     }

@@ -30,6 +30,7 @@
 - (void) setUp
 {
     [self.showJPQSwitch addTarget:self action:@selector(jpqChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.badgeForHilightsOnlySwitch addTarget:self action:@selector(highlightsOnlyChanged:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)jpqChanged:(id)sender {
@@ -37,6 +38,14 @@
     NSLog(state ? @"ON" : @"OFF");
     if (self.jpqSwitchChangedTo) {
         self.jpqSwitchChangedTo(state);
+    }
+}
+
+- (void)highlightsOnlyChanged:(id)sender {
+    BOOL state = [sender isOn];
+    NSLog(state ? @"ON" : @"OFF");
+    if (self.badgeForHilightsOnlySwitchChangedTo) {
+        self.badgeForHilightsOnlySwitchChangedTo(state);
     }
 }
 @end

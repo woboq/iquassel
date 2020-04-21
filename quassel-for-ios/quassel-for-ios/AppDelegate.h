@@ -45,4 +45,7 @@
 - (BOOL)toggleJpqShown:(BufferId*)bufferId;
 - (BOOL)isJpqShown:(BufferId*)bufferId;
 
+- (BOOL)toggleBadgeForHilightsOnly:(BufferId*)bufferId;
+- (BOOL)isBadgeForHilightsOnly:(BufferId*)bufferId;
+
 @end

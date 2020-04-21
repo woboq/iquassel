@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) IBOutlet UISwitch *badgeForHilightsOnlySwitch;
 
  @property (nonatomic, copy, nullable) void (^jpqSwitchChangedTo)(bool);
+@property (nonatomic, copy, nullable) void (^badgeForHilightsOnlySwitchChangedTo)(bool);
 
 @end
 

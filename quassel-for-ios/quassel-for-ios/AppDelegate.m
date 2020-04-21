@@ -597,4 +597,27 @@ void myExceptionHandler (NSException *exception)
     BOOL jpqShown = [prefs boolForKey:prefKey];
     return jpqShown;
 }
+
+- (BOOL)toggleBadgeForHilightsOnly:(BufferId*)bufferId
+{
+    NSUserDefaults *prefs = [AppState preferences];
+    BOOL b = [self isBadgeForHilightsOnly:bufferId];
+    b = !b;
+    NSString *prefKey = [NSString stringWithFormat:@"%d.badgeForHilightsOnly",bufferId.intValue];
+    [prefs setBool:b forKey:prefKey];
+    return b;
+}
+
+
+- (BOOL)isBadgeForHilightsOnly:(BufferId*)bufferId
+{
+    NSUserDefaults *prefs = [AppState preferences];
+    NSString *prefKey = [NSString stringWithFormat:@"%d.badgeForHilightsOnly",bufferId.intValue];
+    NSNumber *n = [prefs objectForKey:prefKey];
+    if (!n) return YES; // Default is true for channels, else we get too many notifications, that's fine
+    return [n boolValue];
+}
+
+
+
 @end
