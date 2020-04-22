@@ -1516,7 +1516,9 @@
             *stop = YES;
             return;
         }
-        unreadCount++;
+        if ([obj messageType] == MessageTypePlain || [obj messageType] == MessageTypeAction) {
+            unreadCount++;
+        }
     }];
     if (seenAtAll) {
         return unreadCount;
