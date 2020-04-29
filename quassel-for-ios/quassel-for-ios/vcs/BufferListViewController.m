@@ -8,6 +8,8 @@
 #import "AppState.h"
 
 @interface BufferListViewController ()
+@property (nonatomic) BOOL showRecents;
+@property (nonatomic) UIBarButtonItem *showRecentsButton;
 
 @end
 
@@ -21,6 +23,8 @@
 {
     self = [super initWithStyle:style];
     canReloadBufferListAndSelectLastUsedOne = YES;
+    self.showRecents = NO;
+    self.showRecentsButton = nil;
     return self;
 }
 
@@ -28,6 +32,8 @@
 {
     self = [super initWithCoder:aDecoder];
     canReloadBufferListAndSelectLastUsedOne = YES;
+    self.showRecents = NO;
+    self.showRecentsButton = nil;
     return self;
 }
 
@@ -35,6 +41,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     canReloadBufferListAndSelectLastUsedOne = YES;
+    self.showRecents = NO;
+    self.showRecentsButton = nil;
     return self;
 }
 
@@ -90,8 +98,23 @@
     return [[quasselCoreConnection.networkIdBufferIdListMap objectForKey:idAtIndex] count] + 1;
 }
 
+- (void) toggleRecents {
+    self.showRecents = !self.showRecents;
+    if (self.showRecents) {
+        self.showRecentsButton.title = @"Recent";
+    } else {
+        self.showRecentsButton.title = @"All";
+    }
+    //[self.tableView reloadData];
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (!self.showRecents) {
+        return tableView.rowHeight;
+    }
     NetworkId *idAtIndex = [quasselCoreConnection.neworkIdList objectAtIndex:indexPath.section];
     CGFloat realRowHeight = tableView.rowHeight;
     if (indexPath.row == 0) {
@@ -436,6 +459,9 @@
         [self.tableView reloadData];
         
     }
+
+    self.showRecentsButton = [[UIBarButtonItem alloc] initWithTitle:@"All" style:UIBarButtonItemStylePlain target:self action:@selector(toggleRecents)];
+    self.navigationItem.rightBarButtonItem = self.showRecentsButton;
 }
 
 - (void) viewDidAppear:(BOOL)animated
