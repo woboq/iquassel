@@ -90,6 +90,45 @@
     return [[quasselCoreConnection.networkIdBufferIdListMap objectForKey:idAtIndex] count] + 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NetworkId *idAtIndex = [quasselCoreConnection.neworkIdList objectAtIndex:indexPath.section];
+    CGFloat realRowHeight = tableView.rowHeight;
+    if (indexPath.row == 0) {
+        return 0;
+    } else {
+        NSArray *bufferIds = [quasselCoreConnection.networkIdBufferIdListMap objectForKey:idAtIndex];
+        BufferId *bufferId = [bufferIds objectAtIndex:indexPath.row-1];
+        BufferInfo *bufferInfo = [quasselCoreConnection.bufferIdBufferInfoMap objectForKey:bufferId];
+        enum BufferActivity bufferActivity = [quasselCoreConnection bufferActivityForBuffer:bufferId];
+
+        NSLog(@"heightForRowAtIndexPath buffer %d %@ %d %d", bufferId.intValue, bufferInfo.bufferName, bufferInfo.bufferActivity, bufferActivity);
+
+        if (bufferActivity == BufferActivityNewMessage) {
+            return realRowHeight;
+        } else if (bufferActivity == BufferActivityHighlight) {
+            return realRowHeight;
+        } else if (bufferActivity == BufferActivityOtherActivity) {
+            return 0;
+        } else if (bufferActivity == BufferActivityNoActivity){
+            // show only when there was a message in last 5 days
+            Message *lastRealMessage = [self.quasselCoreConnection.bufferIdLastRealMessageMap objectForKey:bufferId];
+            if (lastRealMessage && lastRealMessage.messageDate) {
+                NSDate *threeDaysGo = [[NSDate alloc] initWithTimeIntervalSinceNow:-5*24*60*60];
+                if ([threeDaysGo compare:lastRealMessage.messageDate] ==  NSOrderedDescending) {
+                    return 0;
+                }
+            } else {
+                NSLog(@"No message or no date for %@", bufferId);
+                return 0;
+            }
+            return realRowHeight;
+        }
+    }
+    NSLog(@"Eh return default");
+    return realRowHeight;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";

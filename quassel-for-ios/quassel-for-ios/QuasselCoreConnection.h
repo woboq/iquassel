@@ -44,6 +44,7 @@
 @property (nonatomic, strong) NSMutableSet *backlogRequestedForAlreadyBufferIdSet;
 @property (nonatomic, strong) NSMutableDictionary *bufferIdLastSeenMessageIdMap;
 @property (nonatomic, strong) NSMutableDictionary *bufferIdBufferActivityMap;
+@property (nonatomic, strong) NSMutableDictionary *bufferIdLastRealMessageMap;
 @property (nonatomic, strong) NSMutableDictionary *networkIdUserMapMap; // NetworkId -> NSDictionary(Nick -> IrcUser)
 @property (nonatomic, strong) NSMutableDictionary *networkIdChannelMapMap; // NetworkId -> NSDictionary(Channel -> IrcChannel)
 - (IrcUser*) ircUserForNetworkId:(NetworkId*)networkId andNick:(NSString*)nick;

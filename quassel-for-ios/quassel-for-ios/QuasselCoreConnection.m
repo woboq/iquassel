@@ -42,6 +42,7 @@
 @synthesize backlogRequestedForAlreadyBufferIdSet;
 @synthesize bufferIdLastSeenMessageIdMap;
 @synthesize bufferIdBufferActivityMap;
+@synthesize bufferIdLastRealMessageMap;
 @synthesize networkIdUserMapMap;
 @synthesize networkIdChannelMapMap;
 @synthesize networkInitsReceived;
@@ -84,6 +85,7 @@
     backlogRequestedForAlreadyBufferIdSet = nil;
     bufferIdLastSeenMessageIdMap = nil;
     bufferIdBufferActivityMap = nil;
+    bufferIdLastRealMessageMap = nil;
 
     networkIdNetworkNameMap = nil;
     networkIdMyNickMap = nil;
@@ -461,6 +463,7 @@
                 bufferIdMessageListMap  = [NSMutableDictionary dictionaryWithCapacity:bufferInfos.list.count];
                 bufferIdBufferInfoMap  = [NSMutableDictionary dictionaryWithCapacity:bufferInfos.list.count];
                 bufferIdBufferActivityMap = [NSMutableDictionary dictionaryWithCapacity:bufferInfos.list.count];
+                bufferIdLastRealMessageMap = [NSMutableDictionary dictionaryWithCapacity:bufferInfos.list.count];
 
                 //NSLog(@"bufferInfos = %@", bufferInfos);
                 [bufferInfos.list enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -1497,6 +1500,21 @@
     }];
 
     [bufferIdBufferActivityMap setObject:[NSNumber numberWithInt:computedActivity] forKey:bufferId];
+
+    // Set the last real message
+    __block Message *lastRealMessage = nil;
+    [messages enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        Message *message = obj;
+        if (message.messageType == MessageTypeAction
+                   || message.messageType == MessageTypePlain) {
+            lastRealMessage = message;
+            NSLog(@"computeBufferActivityForBuffer %lu RETURNING,CHAT %@", idx, message);
+            *stop = YES;
+        }
+    }];
+    if (lastRealMessage) {
+        [bufferIdLastRealMessageMap setObject:lastRealMessage forKey:bufferId];
+    }
 }
 
 - (int) computeUnreadCountForBuffer:(BufferId*)bufferId
