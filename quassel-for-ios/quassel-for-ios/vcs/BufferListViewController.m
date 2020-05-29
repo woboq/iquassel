@@ -62,6 +62,22 @@
         disconnectButton.action = @selector(disconnectPressed);
     }
 
+
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+
+    } else {
+        // Adding button here only works for iPhone/iPod, for iPad we should add it somewhere else.
+        self.showRecentsButton = [[UIBarButtonItem alloc] initWithTitle:@"All" style:UIBarButtonItemStylePlain target:self action:@selector(toggleRecents)];
+        self.navigationItem.rightBarButtonItem = self.showRecentsButton;
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1)), dispatch_get_main_queue(), ^{
+            [self showRecentsOnly];
+        });
+
+    }
+
+
 }
 
 - (void)viewDidUnload
@@ -96,6 +112,13 @@
     NetworkId *idAtIndex = [quasselCoreConnection.neworkIdList objectAtIndex:section];
     // plus one for the status buffer
     return [[quasselCoreConnection.networkIdBufferIdListMap objectForKey:idAtIndex] count] + 1;
+}
+
+- (void) showRecentsOnly {
+    self.showRecents = YES;
+    self.showRecentsButton.title = @"Recent";
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
 }
 
 - (void) toggleRecents {
@@ -453,15 +476,10 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         
     } else {
-        NSLog(@"FIXME Add disconnect button");
         // Change
         self.navigationItem.hidesBackButton = YES;
         [self.tableView reloadData];
-        
     }
-
-    self.showRecentsButton = [[UIBarButtonItem alloc] initWithTitle:@"All" style:UIBarButtonItemStylePlain target:self action:@selector(toggleRecents)];
-    self.navigationItem.rightBarButtonItem = self.showRecentsButton;
 }
 
 - (void) viewDidAppear:(BOOL)animated
